@@ -1,0 +1,84 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{natbib}
+
+%Packages
+\usepackage{pdflscape}
+\usepackage{fixltx2e}
+\usepackage{textcomp}
+\usepackage{fullpage}
+\usepackage{float}
+\usepackage{latexsym}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[version=3]{mhchem}
+\usepackage{ifthen}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amstext}
+\usepackage{enumerate}
+\usepackage[osf]{mathpazo}
+\usepackage{dcolumn}
+\usepackage{lineno}
+\usepackage{dcolumn}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
+\pagenumbering{arabic}
+
+
+%Pagination style and stuff
+\linespread{2}
+\raggedright
+\setlength{\parindent}{0.5in}
+\setcounter{secnumdepth}{0} 
+\renewcommand{\section}[1]{%
+\bigskip
+\begin{center}
+\begin{Large}
+\normalfont\scshape #1
+\medskip
+\end{Large}
+\end{center}}
+\renewcommand{\subsection}[1]{%
+\bigskip
+\begin{center}
+\begin{large}
+\normalfont\itshape #1
+\end{large}
+\end{center}}
+\renewcommand{\subsubsection}[1]{%
+\vspace{2ex}
+\noindent
+\textit{#1.}---}
+\renewcommand{\tableofcontents}{}
+%\bibpunct{(}{)}{;}{a}{}{,}
+
+%---------------------------------------------
+%
+%       START
+%
+%---------------------------------------------
+
+\begin{document}
+
+\section{Morphological mammalian phylogeny and the K-Pg extinction}
+
+\begin{abstract}
+The K-Pg extinction (66 million years ago - Mya) is often taught as a classic example of adaptive radiation where the extinction of non-avian dinosaurs liberated niches, allowing mammals to evolve into all the diversity we know today.
+However, the actual effect of the K-Pg extinction on mammalian evolution has been heatedly debated in the last five years with most of the arguments revolving around which data is used and around when mammals are thought to have originated \citep{meredithimpacts2011,OLeary08022013,dosReis2014,Phillips01052016,Springer201786}.
+In fact, most of the discrepancies between these studies seem to be due to the different focus on the data and the methods used \citep[c.f. fossils or living mammals, parsimony or Bayesian;][]{OLeary08022013,beckancient2014}.
+
+Two recent studies have focused on trying to approach this debate by thoroughly studying mammalian fossils \citep{beckancient2014,halliday2015eutherian}.
+Their datasets focus on fossils just around the K-Pg boundary estimating that any effect of the extinction could only be considered recently after the extinction (i.e during the Palaeogene; 66-55 Mya)
+Through this project, we will attempt to combine both datasets and apply both the latest dating methods in parsimony and Bayesian to help measure the effect of the K-Pg extinction on our group's evolution. 
+\end{abstract}
+
+\bibliographystyle{sysbio}
+\bibliography{References}
+
+\end{document}
