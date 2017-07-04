@@ -1,0 +1,86 @@
+## Load the nexus data ##
+## Extract the matrices $ ## 
+## is.na ##
+## unique species ##
+## rbind and cbind ##
+
+install.packages("devtools")
+library(devtools)
+
+install_github("graemetlloyd/Claddis")
+library(Claddis)
+
+## Read in the data ##
+
+Beck_Nexus<- ReadMorphNexus("2014-Beck-ProcB-matrix-morpho.nex")
+Halliday_Nexus<- ReadMorphNexus("2015-Halliday-LinSoc-matrix-morpho.nex")
+
+## Extract the matrices ##
+
+Beck_matrix<- Beck_Nexus$matrix
+Halliday_matrix<- Halliday_Nexus$matrix
+
+## Extract the row names ##
+
+Beck_species<-row.names(Beck_matrix)
+Halliday_species<-row.names(Halliday_matrix)
+
+## Find the matching and unique species ##
+
+Match_Beck<-match(Beck_species, Halliday_species)
+
+Unique_Beck_species<-Beck_species[is.na(Match_Beck)]
+Common_Beck_species<-Beck_species[!is.na(Match_Beck)]
+
+Match_Halliday<-match(Halliday_species, Beck_species)
+
+Unique_Halliday_species<-Halliday_species[is.na(Match_Halliday)]
+Common_Halliday_species<-Halliday_species[!is.na(Match_Halliday)]
+
+## Becuase it alphebetized them so use function sort ##
+
+sort(Common_Halliday_species)==sort(Common_Beck_species)
+
+## Upload the combination list ##
+
+Combo_Excel<-read.csv("Combo.csv")
+
+## Create a matrix of becks unique species and Halidays characters ## 
+
+Draft_Beck_matrix<-matrix(NA,nrow=length(Unique_Beck_species),ncol = (ncol(Halliday_matrix)))
+
+## Name the new matrix rows ##
+
+row.names(Draft_Beck_matrix)<-Unique_Beck_species
+
+## Create a loop to place all of the correct characters in the correct columns ##
+
+for(character in 1:nrow(Combo_Excel)){
+  cat(paste("replace character" ,Combo_Excel[character, 3], "into", Combo_Excel[character, 2], "\n"))
+Draft_Beck_matrix[,Combo_Excel[character,3]]<-Beck_matrix[match(Unique_Beck_species,row.names(Beck_matrix)),Combo_Excel[character,2]]
+}
+
+## Combine the matrix of unique Beck taxa with all of Hallidays taxa and characters ##
+
+Beck_Halliday_matrix_draft_first<-rbind(Halliday_matrix,Draft_Beck_matrix)
+
+## *Avoid magic numbers* Create a matrix of Becks unique characters ##
+
+New_matrix_beck_unique_characters<-matrix(NA,ncol = 13,nrow= nrow(Halliday_matrix))
+
+## Name the new matrix with Hallidays species ##
+
+row.names(New_matrix_beck_unique_characters)<-row.names(Halliday_matrix)
+
+## Create a Matrix of Becks unique characters with Becks taxa ##
+
+Unique_Beck_mini_matrix<-Beck_matrix[match(Unique_Beck_species,row.names(Beck_matrix)),409:421]
+
+## Combine the two new smaller matrices ##
+
+Beck_characters_matrix<-rbind(New_matrix_beck_unique_characters,Unique_Beck_mini_matrix)
+
+## Combine all into the BIG matrix ##
+
+Big_matrix<-cbind(Beck_Halliday_matrix_draft_first,Beck_characters_matrix)
+
