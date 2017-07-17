@@ -1,0 +1,74 @@
+#NEXUS
+[Data written by write.nexus.data.R, Tue Mar 14 14:28:34 2017]
+BEGIN DATA;
+  DIMENSIONS NTAX=150 NCHAR=350;
+  FORMAT DATATYPE=STANDARD MISSING=? GAP=- INTERLEAVE=YES symbols="0123456789";
+  MATRIX
+    outgroup      00001000001100000001000001100010000000110001000011000101011001100100100100010000
+    sp125         02001210001110200101000100100010010010011101001011010101011111111101110101010000
+    sp126         02001110001110110101000100110010000010011201000011010101111101101111110111110000
+    sp135         00011110001100000001110010100010010111011001000011000101101011100100100100010000
+    sp137         12001100111100210101000100120010001011011101000010010101111201100110100101110000
+    sp143         02001110101100210101000000110010000010011001020011010101111200100110100101110000
+    sp144         12001010001110200001000001100010010001011201001011010101011010111101100101110000
+    sp147         02001200001110200101000000100010010000011201021011010101011211111101100101010000
+	...
+  ;
+END;
+
+[Todo:]
+[1 - copy paste the matrix in DATA block]
+[2 - replace the <CHAIN_NAME> by your actual file names]
+[3 - find the <OUTGROUP>]
+[4 - tune the parameters]
+
+
+begin mrbayes;
+[Data input]
+set autoclose=yes nowarn=yes;
+log start filename=<CHAIN_NAME>.log;
+
+[Model settings - base]
+outgroup <OUTGROUP> ;
+lset nst=1 rates=gamma Ngammacat=4;
+[prset ratepr=variable Shapepr=Exponential(0.5);]
+[try with and without the prior]
+
+[MCMC settings - base]
+mcmc append=yes nruns=2 Nchains=4 ngen=1000000 Stoprule=YES stopval=0.01 mcmcdiagn=YES file=<CHAIN_NAME>;
+[Things to tune: ngen. (increase - don't decrease)]
+[ samplefreq=500 printfreq=1000 diagnfreq=5000   -  any ++ values make the search faster but less precise and -- makes slower but more precise]
+   
+   
+sump Filename=<CHAIN_NAME> Relburnin=YES Burninfrac=0.25;
+sumt Filename=<CHAIN_NAME> Relburnin=YES Burninfrac=0.25;
+end;
+
+
+[Once that is running add these options:]
+[Model settings advanced]
+[Set up constraints (check in MrBayes how to)]
+[Use molecular constraints for example]
+constraint contrain_name ...;
+
+[Calibration]
+	calibrate constrain_name = uniform(70.0 - 55.0); [check this syntax, this is for node calibration - don't worry about that too much for now];
+	
+	calibrate Taxon_name = fixed(70.0); [This is tip calibration: use the age of the fossil in the paper or if you don't find, use PaleoDB (use the oldest age)]
+	[For tip calibrating, calibrate ALL the tips]
+
+[Set prior for tree shape]
+	prset topologypr = constraints(Root, node1, node2, node3, node4, node5, node6, node7, node8,node9, node10); [ topological constraint if you have one (i.e. if you used constraint command)]
+	prset treeagepr = fixed(185.0); [ You can set an arbitrary age for the the whole tree]
+	prset nodeagepr = calibrated; [Set up that if you used calibrations]
+	prset brlenspr = clock; [This is the simple clock model for now. Ignore if it doesn't work]
+[	prset brlenspr = clock : fossilization; [This is the Fossilised-Birth-Death model] ]
+[	prset speciationpr = exp(10.0);]
+[	prset extinctionpr = beta(1,1);]
+[	prset fossilizationpr = beta(2,2);] [These parameters are important but hard to tune - Maybe don't use them or use the ones here (don't change them)]
+[	prset samplestrat = diversity 3: 150.40 0, 90.10 0, 54.4 0; [Ord-Sil/Dev = 150.40, Dev/Carb = 90.10, Miss/Penn = 54.4]] [This is your sampling prior, same as above]
+[	prset sampleprob = 0.008; [5/630 = ~0.008]] [ Actually, ignore all these 5 priors for now - we'll fine tune them if we have time]
+	prset clockratepr = normal(0.01, 0.1); [Leave these ones as they are for now]
+	prset clockvarpr = IGR; [Leave these ones as they are for now]
+	prset IGRvarpr = exp(10); [Leave these ones as they are for now]
+	

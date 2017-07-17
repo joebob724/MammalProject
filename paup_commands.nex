@@ -1,0 +1,46 @@
+#NEXUS
+[Data written by write.nexus.data.R, Tue Mar 14 10:55:29 2017]
+BEGIN DATA;
+  DIMENSIONS NTAX=75 NCHAR=350;
+  FORMAT DATATYPE=STANDARD MISSING=? GAP=- INTERLEAVE=YES symbols="0123456789";
+  MATRIX
+    outgroup      01111010000101101011000011001011011111000121111111100110001211110100211010000100
+    sp53          11000010101101101110020111010101110210111111011011101100010011100110002001110111
+    sp66          01001110000001100100111111010111010110110111011101100111101201100101102011011110
+    sp69          01111111000110001001021111110100011111000121011001010200020201101000012101100110
+    sp74          11001010100111101000011111101010110210110101011011001210001201101110002110000111
+	...
+  ;
+END;
+
+
+[Todo:]
+[1 - copy paste the matrix in DATA block]
+[2 - replace the <CHAIN_NAME> by your actual file names]
+[3 - find the <OUTGROUP>]
+[4 - tune the parameters]
+
+
+begin paup;
+[Data input]
+set autoclose=yes warntree=no warnreset=no;
+log start file=<CHAIN_NAME>.log replace;
+execute <CHAIN_NAME>.nex;
+
+[Model settings]
+outgroup <OUTGROUP>; [insert species names example: Homo_sapiens, Pan_paniscus, ...]
+set maxtrees=500 increase=auto autoInc=500;
+
+[Parsimony search]
+hsearch addseq=random nreps=100 rseed=01234; [rearrlimit=5000000 limitperrep=yes;]
+[If this is too slow, add the rearrlimit option (commented out above]
+[if it is too fast, increase the number of rearrangements]
+
+bootstrap bseed=12345 nreps=100 ConLevel=50 KeepAll=yes TreeFile = <CHAIN_NAME>.bs
+[Same as above but don't go below 100 replicates]
+
+[Summarize search]
+savetrees /file=<CHAIN_NAME>.tre root replace;
+contree /majrule cutoff=50 file=<CHAIN_NAME>.contre replace;
+q;
+end;
