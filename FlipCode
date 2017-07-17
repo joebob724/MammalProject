@@ -1,0 +1,28 @@
+## Read in Flip excel ##
+
+Flip_Loop<-read.csv("../In/FlippingLOOP - Sheet1.csv")
+
+## Extract which species need flipping (all Beck species) ##
+Species_list<- which(rownames(Big_matrix) %in% Beck_species)
+rownames(Big_matrix)
+which(rownames(Big_matrix) %in% Beck_species)
+rownames(Big_matrix)[Species_list]
+
+## Create a new Big matrix to compare and protect ##
+Big_matrix_flipped<-Big_matrix
+
+## Where are character numbers = Every row, colum one ##
+Character_numbers<-unique(Flip_Loop[,1])
+
+## Loop for each character (unique) read left to right flip characters using function ##
+for(one_character_number in 1:length(Character_numbers)){ ## For as long as Flip sheet (ie. character numbers) ##
+  Character_number_one<-Character_numbers[one_character_number] ## Indiviudual (unique) character ##
+  Character <- Big_matrix[,Character_number_one]  ## Extract from Big Matrix ##
+  Character_rows<-which(Flip_Loop[,1] %in% Character_number_one) ## Which characters to flip ##
+  tmp_list <- t(Flip_Loop[Character_rows,2:3]) ## Flip states in row 2 to be states in row 3 ##
+  conv_list <- list() ## Create an empty conversion list ##
+  for(tmpcolumn in 1:ncol(tmp_list)){ ## Sub-loop using all columns to fill conv_list and print as character ##
+    conv_list[[tmpcolumn]]<-as.character(tmp_list[,tmpcolumn])
+  }
+  Big_matrix_flipped[,Character_number_one]<-flip.characters(Character, Species_list,conv_list) ## Insert the flipped characters into a New flipped Matrix ##
+}
