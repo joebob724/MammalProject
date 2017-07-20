@@ -4,18 +4,21 @@
 
 source("../Code/ReadMorphNexus.txt")
 
-install.packages("devtools")
+#TG: I've changed the package installation to be done only when necessary. Here, the code reads, if devtools is not "requirable", install it.
+if(!require(devtools)) install.packages("devtools")
 library(devtools)
 
-install_github("graemetlloyd/Claddis")
-library(Claddis)
+#TG: You don't need this bit any more since you'r installing another version
+# install_github("graemetlloyd/Claddis")
+# library(Claddis)
 
-remove.packages("Claddis")
+# remove.packages("Claddis")
 
 install_github("TGuillerme/Claddis")
 library(Claddis)
 
-install.packages("gdata")
+#TG: same as above
+if(!require(gdata)) install.packages("gdata")
 library(gdata)
 
 ## Read in the data ##
@@ -103,6 +106,15 @@ source("flip.characters.R")
 
 Flip_Loop<-read.csv("../In/FlippingLOOPdaLOOP.csv")
 
+# #TG: Here we change the format of column 2 and 3 to be treated as character (read.csv treats them as factors)
+# Flip_Loop[,2] <- as.character(Flip_Loop[,2])
+# Flip_Loop[,3] <- as.character(Flip_Loop[,3])
+
+# #TG: replacing the question marks (?) in Flip_Loop to be NAs
+# #TG: Here we select the rows in the 3rd column of Flip_Loop that contain "?" (treated as character) and replace them by NA
+# Flip_Loop[which(Flip_Loop[,3] == "?"), 3] <- NA
+
+
 ## Extract which species need flipping (all Beck species) ##
 
 Species_list<- which(rownames(Big_matrix) %in% Beck_species)
@@ -131,31 +143,36 @@ for(one_character_number in 1:length(Character_numbers)){ ## For as long as Flip
   Big_matrix_flipped[,Character_number_one]<-flip.characters(Character, Species_list,conv_list) ## Insert the flipped characters into a New flipped Matrix ##
 }
 
+#TG: replacing the question marks (?) introduced from the Flip_Loop into proper NAs
+Big_matrix_flipped[which(Big_matrix_flipped == "?")] <- NA
+
 ###################################################################################
 ##########################       WRITING TO NEXUS       ###########################
 ###################################################################################
 
 ## Modified write.nexus.data function to cope with standard data
-write.nexus.std <- ape::write.nexus.data
-body(write.nexus.std)[[2]] <- substitute(format <- match.arg(toupper(format), c("DNA", "PROTEIN", "STANDARD")))
-body(write.nexus.std)[[26]][[3]][[4]] <- substitute(fcat(indent, "FORMAT", " ", DATATYPE, " ", MISSING, " ", GAP, 
-                                                         " ", INTERLEAVE, " symbols=\"0123456789\";\n"))
+# write.nexus.std <- ape::write.nexus.data
+# body(write.nexus.std)[[2]] <- substitute(format <- match.arg(toupper(format), c("DNA", "PROTEIN", "STANDARD")))
+# body(write.nexus.std)[[26]][[3]][[4]] <- substitute(fcat(indent, "FORMAT", " ", DATATYPE, " ", MISSING, " ", GAP, 
+#                                                          " ", INTERLEAVE, " symbols=\"0123456789\";\n"))
 
 ####################################################################################
 ##########################       ATTEMPTS TO FIX/DEBUG       #######################
 ####################################################################################
 
 
-write.nexus.std(Big_matrix_TWO, file = "Big_matrix_TWO.nex")
+# write.nexus.std(Big_matrix_TWO, file = "Big_matrix_TWO.nex")
 
-Big_matrix_TWO <- gsub(NA, "?",Big_matrix_flipped)
+# Big_matrix_TWO <- gsub(NA, "?",Big_matrix_flipped)
 
-class(Big_matrix_TWO) 
-length(Big_matrix_TWO) 
-dim(Big_matrix_TWO) 
-str(Big_matrix_TWO)
+# class(Big_matrix_TWO) 
+# length(Big_matrix_TWO) 
+# dim(Big_matrix_TWO) 
+# str(Big_matrix_TWO)
 
 nexus_matrix <- MakeMorphMatrix(Big_matrix_flipped)
 WriteMorphNexus(nexus_matrix, file = "Big_matrix_flipped_again.nex")
 
-setdiff(unique(unlist(strsplit(as.character(unique(as.vector(Big_matrix_flipped))),  "&"))), c(as.character(0:31), NA, "-"))
+#TG: After you've written the file, you need to modify it into 
+
+# setdiff(unique(unlist(strsplit(as.character(unique(as.vector(Big_matrix_flipped))),  "&"))), c(as.character(0:31), NA, "-"))
