@@ -157,6 +157,25 @@ Big_matrix_flipped[which(Big_matrix_flipped == "?")] <- NA
 #                                                          " ", INTERLEAVE, " symbols=\"0123456789\";\n"))
 
 ####################################################################################
+##########################       CREATING CONSTRAINTS       #######################
+####################################################################################
+
+install.packages("devtools")
+library(devtools)
+install_github("dwbapst/paleotree")
+library(paleotree)
+
+Hall_Tree_Constraint<-read.tree("../In/Halliday_topology.con.tre")
+Beck_Tree_Constraint<-read.tree("../In/Beck_topology.con.tre")
+Super_Tree_Constraint<-read.tree("../In/SuperTree.tre")
+
+Hall_Constaint<-createMrBayesConstraints(Hall_Tree_Constraint, partial = TRUE, file = NULL)
+Beck_Constraint<-createMrBayesConstraints(Beck_Tree_Constraint, partial = TRUE, file= NULL)
+Super_Constraint<-createMrBayesConstraints(Super_Tree_Constraint, partial = TRUE, file= NULL)
+
+# To get the full list of node constraints (ie. without "<Truncated>"), this code must be executed in R as apposed to Rstudio.
+
+####################################################################################
 ##########################       ATTEMPTS TO FIX/DEBUG       #######################
 ####################################################################################
 
