@@ -1,0 +1,114 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+
+\begin{document}
+
+\section{Introduction}
+
+define Phylogenetics\\
+major Methods of phlyogenetics:\\ 
+ - Phenetic distance based methods (Neighbour-joining)\\
+ - Character based methods (Bayesian, MP and ML)\\
+what can Phylogenetics do for us?\\
+
+accuracy of Phylogenitic trees?\\
+ - consistency (convergence on correct tree)\\
+ - efficiency (rate of convergence with more data added)\\
+ - robustness (how sensitive to violations of robustness)\\
+
+missing data effects\\
+
+molecular improvements\\
+
+models\\
+
+fossils in phlyogenetics - 50 billion species, 99\% extinct \\
+ - fossils can provide a strong basis of evolutionary classification, when adequate data is available \\
+ - fossils can alter exisiting relationships and infer new ones\\
+ - Break-up long branches\\
+ - Stabalise uncertain polarities\\
+ - Sequence events\\
+ - Calculating rates\\
+
+\section{Methods}
+
+take two morphological data sets \\
+
+Beck and Lee character matrix \citep{beck2014ancient} (102 taxa (...unique), 421 characters (13 unique) combined with..  
+
+Halliday and Goswami matrix \citep{halliday2016eutherian} (177 taxa (...unique), 680 characters (222 unique). 
+
+combine two morphological data sets using R \\
+ - Assumptions: \\ 
+ - Halliday character states/descriptiions updated Becks\\ 
+
+ - Alterations:\\
+ - Some characters from Beck and Lee were broken down in Halliday and Goswami’s matrix. \\
+ - Some character states were also reversed between matrices. These were altered in the nexus and are marked in the character table. \\
+ 
+Characters as: 
+
+Author = Original author of character
+
+OCN = Original character number (where found)
+
+Name = First three letters of author, date of publication (last two digits of four digit year), code of character type, number identifier within character type. \\ 
+ 
+Combined using R - Adding Becks unique taxa and characters to Hallidays matrix. \\ 
+
+use composite matrix to run Bayesian analysis\\
+create constraints using PaleoTree package in R\\
+packages used: Devtools, Claddis, PaleoTree \\
+
+parameters\\
+ - outgroup Nanolestes =\\
+ - delete taxa Laindon, Montamalestes, Kharmerungulatum, Alymlestes = Because these are unstable taxa\\
+ - constrained the ingroup and root to seperate groups (1 and 2)\\
+ - clockvarpr=igr (independent gamma rates) =it is the rate at which the variance of the effective branch length increases over time,\\
+ - brlenspr=clock:fossilization (birth-death-rate)\\
+ - fixed tip dating\\
+ - constrain the combined tree by Becks original tree, then Hallidays original tree, then by both combined\\
+
+ - Halliday's topology constraint\\
+For the Halliday's constraint, we build a majority consensus tree from the topologies of [Halliday and Goswami 2015]\\ (http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract) without branch length (using `ape::consensus` in R).
+
+ - Beck's topology constraint
+For the Beck's constraint, we build a majority consensus tree from the 7 constrained topologies of [Beck and Lee 2014]\\ (http://rspb.royalsocietypublishing.org/content/281/1793/20141278) without branch length (using `ape::consensus` in R).
+We selected the constrained trees only to avoid to much noise from the unconstrained topologies.
+
+ - SuperTree's topology constraint
+For the super tree topology, we build a simple supertree from the two topologies described above using [clann](http://chriscreevey.github.io/clann/).
+We ran the supertree search on both trees using the clann default parameters (Most Similar Supertree searched with a Sub-tree Pruning Regrafting algorithm for 10 heuristic searches).
+
+ - mcmc temp=0.15, 4 runs, 4 chanins, burnin of !!!!, number of generations = !!!! 
+
+\section{Results} 
+
+position/disparity of "added taxa"
+
+\section{Discussion}
+
+affect of adding data
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+\section{References}
+
+\bibliographystyle{plainnat}
+\bibliography{References/Biblo}
+
+\end{document}
