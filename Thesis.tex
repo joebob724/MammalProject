@@ -24,6 +24,8 @@ molecular improvements\\
 
 models\\
 
+mass extinctions\\
+
 fossils in phlyogenetics - 50 billion species, 99\% extinct \\
  - fossils can provide a strong basis of evolutionary classification, when adequate data is available \\
  - fossils can alter exisiting relationships and infer new ones\\
@@ -32,13 +34,29 @@ fossils in phlyogenetics - 50 billion species, 99\% extinct \\
  - Sequence events\\
  - Calculating rates\\
 
+fossil calibrations\\
+- node dating\\
+- tip dating \\
+- total evidence analysis (node + tip dating)\\
+
+Node dating = most common method >2000 references\\
+Node and tip dating = improves the resolution and greater support for ages/posteriors, can be less sensitive to priors\\
+
+Yule process = assumes a constant rate of speciation across lineages (no extinction).\\
+
+Birth-death process = at any point in time a lineage can speciate at rate λ (speciation rate) or go extinct with a rate of μ (extinction rate), connected by diversification rate and turnover.\\
+
+Fossilized birth-death process = probability of the tree and fossil observations under a birth-death model. Improves inference of nodes. Better capture statistical uncertainty. Turnover and diversification rates now linked by fossil recovery rate and the probability of fossil recovery.\\
+
 \section{Methods}
 
 take two morphological data sets \\
 
-Beck and Lee character matrix \citep{beck2014ancient} (102 taxa (...unique), 421 characters (13 unique) combined with..  
+Beck and Lee character matrix \citep{beck2014ancient} (102 taxa (47 unique), 421 characters (13 unique) combined with..\\  
 
-Halliday and Goswami matrix \citep{halliday2016eutherian} (177 taxa (...unique), 680 characters (222 unique). 
+Halliday and Goswami matrix \citep{halliday2016eutherian} (177 taxa (115 unique), 680 characters (222 unique).\\ 
+
+(59 common species)\\
 
 combine two morphological data sets using R \\
  - Assumptions: \\ 
@@ -68,7 +86,7 @@ parameters\\
  - constrained the ingroup and root to seperate groups (1 and 2)\\
  - clockvarpr=igr (independent gamma rates) =it is the rate at which the variance of the effective branch length increases over time,\\
  - brlenspr=clock:fossilization (birth-death-rate)\\
- - fixed tip dating\\
+ - fixed tip dating = Beck species tips dated as Becks dates, Hallidays additional species dated using fossilworks, for these two species (!!!!) ages were taken from (!!!!), Eomanis is from messel pit, messel pit age =  \\
  - constrain the combined tree by Becks original tree, then Hallidays original tree, then by both combined\\
 
  - Halliday's topology constraint\\
