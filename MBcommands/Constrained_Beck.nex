@@ -2,7 +2,7 @@
 
 BEGIN DATA;
 	DIMENSIONS  NTAX=221 NCHAR=694;
-	FORMAT DATATYPE=STANDARD MISSING=? GAP=- ;
+	FORMAT DATATYPE=STANDARD SYMBOLS= " 0 1 2 3 4 5" MISSING=? GAP=- ;
 
 MATRIX
 
@@ -230,6 +230,9 @@ Trichechus                 221???031202200???1222?004102?01???????????????0002?1
 ;
 END;
 
+[BEGIN ASSUMPTIONS;]
+	[OPTIONS  DEFTYPE=ord PolyTcount=MINSTEPS ;]
+
 begin mrbayes;
 
 set autoclose=yes nowarn=yes;
@@ -335,10 +338,7 @@ constraint ingroup = 2-.;
 
 
 
-Calibrate
-
-	
-	Aaptoryctes	                    =fixed    (               55.8)	
+Calibrate Aaptoryctes	                    =fixed    (               55.8)	
 [Calibrate] Acmeodon	                    =fixed    (               56.8)
 [Calibrate] Acristatherium                  =fixed    (              123.2)
 [Calibrate] Adapis                          =fixed    (                 37)
@@ -413,7 +413,7 @@ Calibrate
 [Calibrate] Eoconodon	                    =fixed    (               63.3)	
 [Calibrate] Eohippus	                    =fixed    (               50.3)	
 [Calibrate] Eomaia                          =fixed    (                125)
-[!!!!]Eomanis	                    =fixed    (Messel Pit maximum (youngest) age)	]
+Eomanis	                                    =fixed    (47)	
 [Calibrate] Eoryctes                        =fixed    (               55.3)
 [Calibrate] Eoungulatum                     =fixed    (                 90)
 [Calibrate] Eozhelestes                     =fixed    (                 96)
@@ -421,7 +421,7 @@ Calibrate
 [Calibrate] Eritherium	                    =fixed    (               55.8)	
 [Calibrate] Escavadodon	                    =fixed    (               61.7)	
 [Calibrate] Esthonyx	                    =fixed    (               48.6)	
-[!!!!][Eurotamandua	                =fixed    (Messel Pit maximum (youngest) age)]
+Eurotamandua	                            =fixed    (47)
 [Calibrate] Gallolestes                     =fixed    (               77.5)
 [Calibrate] Gelastops	                    =fixed    (               56.8)	
 [Calibrate] Gobiohyus	                    =fixed    (               37.2)
@@ -589,12 +589,12 @@ CALIBRATE root=uniform(161.001,199.6);
 [Enforce all the above calibrations]
 PRSET nodeagepr = calibrated;
 
-MCMCP nruns=2 nchains=4 mcmcdiagn=yes savebrlens=yes relburnin=yes burninfrac=0.25;
+MCMCP append=yes nruns=2 nchains=4 mcmcdiagn=yes savebrlens=yes relburnin=yes burninfrac=0.25;
 MCMCP samplefreq=1000 printfr=5000 filename=Beck_Constrained;
 
-mcmc ngen= 10000000; 
+mcmc ngen= 30000000; 
 
-sumt filename=Beck_Constrained=allcompat relburnin=yes burninfrac=0.25;
+sumt filename=Beck_Constrained relburnin=yes burninfrac=0.25;
 sump filename=Beck_Constrained relburnin=yes burninfrac=0.25;
 
 End;
