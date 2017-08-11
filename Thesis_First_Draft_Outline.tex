@@ -1,0 +1,196 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+
+\begin{document}
+
+\section{title}
+
+How Does Adding Data Change Node Age Estimation In Morphological Phylogenies
+
+\section{Abstract}
+
+\section{Introduction}
+
+\subsection{Paragraph 1}
+- (Broad) = what is the paper about and why is this interesting, why isn't there an answer already?\\
+- Explanation of difficulties of phylogenetics as a broad topic.\\
+- Accuracy of phylogenetics = consistency (convergence on correct tree), efficiency (rate of convergence with more data added), robustness (how sensitive to violations of robustness)\\
+- Use of fossils for dating trees.\\
+- Importance of node dating and divergence times.\\
+
+\subsection{Paragraph 2}
+- (Focusing)
+- Mammals in phylogenetics.\\
+- Mammal divergence estimates around K-pg.\\
+- 
+
+\subsection{Paragraph 3}
+- (Focused)
+- Hypotheses
+- How is this going to be tested? 
+- Why are we testing it in this way?
+
+\subsection{Other Ideas}
+- define Phylogenetics\\
+major Methods of phlyogenetics:\\ 
+- Phenetic distance based methods (Neighbour-joining)\\
+- Character based methods (Bayesian, MP and ML)\\
+what can Phylogenetics do for us?\\
+
+accuracy of Phylogenitic trees?\\
+- consistency (convergence on correct tree)\\
+- efficiency (rate of convergence with more data added)\\
+- robustness (how sensitive to violations of robustness)\\
+
+missing data effects\\
+
+molecular improvements\\
+
+models\\
+
+fossils in phlyogenetics - 50 billion species, 99\% extinct \\
+- fossils can provide a strong basis of evolutionary classification, when adequate data is available \\
+- fossils can alter exisiting relationships and infer new ones\\
+- Break-up long branches\\
+- Stabalise uncertain polarities\\
+- Sequence events\\
+- Calculating rates\\
+
+fossil calibrations\\
+- node dating\\
+- tip dating \\
+- total evidence analysis (node + tip dating)\\
+
+Node dating = most common method >2000 references\\
+Node and tip dating = improves the resolution and greater support for ages/posteriors, can be less sensitive to priors\\
+
+Yule process = assumes a constant rate of speciation across lineages (no extinction).\\
+
+Birth-death process = at any point in time a lineage can speciate at rate λ (speciation rate) or go extinct with a rate of μ (extinction rate), connected by diversification rate and turnover.\\
+
+Fossilized birth-death process = probability of the tree and fossil observations under a birth-death model. Improves inference of nodes. Better capture statistical uncertainty. Turnover and diversification rates now linked by fossil recovery rate and the probability of fossil recovery.\\
+
+\section{Methods}
+
+\subsection{Data Combination}
+
+1). Gather data in the form of two morphological data sets \\
+ - Beck and Lee character matrix \citep{beck2014ancient} (102 taxa (47 unique), 421 characters (13 unique) combined with..\\  
+ - Halliday and Goswami matrix \citep{halliday2016eutherian} (177 taxa (115 unique), 680 characters (222 unique).\\ 
+ - (59 common species)\\
+
+2). Create a super matrix in excel to standardise the data format and naming system.\\
+ - Characters formatted as: \\
+ - Author = Original author of character.\\
+ - OCN = Original character number (where found).\\
+ - Name = First three letters of author, date of publication (last two digits of four digit year), code of character type, number identifier within.\\ character type. \\ 
+ - During creation of the super matrix, some descriptions of shared characters were different. In these cases Hallidays descriptions were taken.\\
+ - Some of Becks original characters were broken down into subs, more specific characters, by Halliday.\\
+
+3). R was used to combine these two data matrices (full code in supplementary?).\\
+ - The character data from Beck and Halliday was inported to R using a modified ``ReadMorphNexus'' from the Claddis package.\\
+ - The matrices were extracted and combined based on unique and common taxa.\\
+ - A loop was written to place the added characters into the correct position in the super matrix.\\
+ - Some shared characters had flipped states in Hallidays data, a loop was used and a function written (``flip.characters.R'') to re-order the states of these characters according to a list.\\
+
+ 4). A modified ``write.nexus.data'' function was used to export the finalised matrix.\\
+
+ 5). Paleotree package was used to create the two constraints used. After 
+ - Halliday's topology constraint\\
+For the Halliday's constraint, we build a majority consensus tree from the topologies of [Halliday and Goswami 2015]\\ (http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract) without branch length (using `ape::consensus` in R).
+ - Beck's topology constraint\\
+For the Beck's constraint, we build a majority consensus tree from the 7 constrained topologies of [Beck and Lee 2014]\\ (http://rspb.royalsocietypublishing.org/content/281/1793/20141278) without branch length (using `ape::consensus` in R).
+We selected the constrained trees only to avoid to much noise from the unconstrained topologies.
+
+\subsection{Tree Creation}
+
+1). Trees were created using Mr Bayes (Nexus files available in Supp.)\\
+
+2). parameters\\
+- outgroup Nanolestes = why?
+- delete taxa Laindon, Montamalestes, Kharmerungulatum, Alymlestes = Because these are unstable taxa\\
+- constrained the ingroup and root to seperate groups (1 and 2)\\
+- clockvarpr=igr (independent gamma rates) =it is the rate at which the variance of the effective branch length increases over time,\\
+- brlenspr=clock:fossilization (birth-death-rate) = why?\\
+- fixed tip dating = Beck species tips dated as Becks dates, Hallidays additional species dated using fossilworks, for these two species (!!!!) ages were taken from the age of the messel pit formation. = why?\\
+- constrain the combined tree by Becks original tree, then Hallidays original tree, [then by both combined (!!!!)]\\
+- 2 runs = why?\\
+- 4 chains = why?\\
+- burnin of (!!!!) = why?\\
+
+\subsection{Other}
+
+combine two morphological data sets using R \\
+- Assumptions: \\ 
+- Halliday character states/descriptiions updated Becks\\ 
+
+- Alterations:\\
+- Some characters from Beck and Lee were broken down in Halliday and Goswami’s matrix. \\
+- Some character states were also reversed between matrices. These were altered in the nexus and are marked in the character table. \\
+ 
+Combined using R - Adding Becks unique taxa and characters to Hallidays matrix. \\ 
+
+use composite matrix to run Bayesian analysis\\
+create constraints using PaleoTree package in R\\
+packages used: Devtools, Claddis, PaleoTree \\
+
+- What is the overall design of study?\\
+- What are the variables and how do they relate to the hypotheses?\\
+- How/where get the data?\\
+- What are the characteristics of the data set / experiment -- how many observations, how many replicates etc.\\
+- General procedures, if any, that are true in all of the analyses (e.g., transformation of data, model checking, how models were compared)\\
+- How did you test the hypotheses, in the logical order outlined in the introduction (i.e., from the general to the specific)? Make sure you show that your tests are appropriate.\\
+
+\section{Results} 
+
+\subsection{Plot of node ages against data sets}
+
+\subsection{Table of raw node ages}
+
+\section{Discussion}
+
+- What’s the main thing we know now that we didn’t know before? What affect did adding data have on the node ages?\\
+
+- What’s the chain of logic and results that means we know this answer?\\
+
+- How does this affect our future research? What are the possible implications of this answer?\\
+
+- Caveats\\
+- Time constraints limited the number of generations trees could run for.\\
+- Limited time also meant heavy constraints were needed and fewer parameter combinations could be tested.\\
+- What might be done about them? (Very important in a project write-up -- What would you do differently if you were doing the project again or had more time?)\\
+
+- What future work could build more broadly on what we’ve found?\\
+- How may this study in this area be of interest to other work in other areas, or other systems.\\
+
+- Link\\
+
+\section{Supplementary}
+
+- R code\\
+- Trees\\{}
+- Mb command files\\ 
+
+\section{Possible Papers}
+
+\citep{halliday2016eutherian}
+\citep{halliday2016impact}
+\citep{halliday2017resolving}
+\citep{halliday2016eutherians}
+\citep{beck2014ancient}
+\citep{arcila2015evaluation}
+\citep{near2004assessing}
+\citep{lee2015morphological}
+\citep{puttick2016dating}
+\citep{pyron2016novel}
+\citep{turner2017empirical}
+\citep{heath2014fossilized}
+\citep{wiens2004role}
+\citep{nabhan2011impact}
+
+\bibliographystyle{plainnat}
+\bibliography{References/Biblo}
+
+\end{document}
