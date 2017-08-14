@@ -7,42 +7,54 @@
 
 \section{title}
 
-How Does Adding Data Change Node Age Estimation In Morphological Phylogenies
+How Does Adding Data Change Node Age Estimation In Morphological Phylogenies?
+% TG: why capital letters to each world? 
 
 \section{Abstract}
 
 \section{Introduction}
 
+%TG: General comment: make sure your paragraphs link to each other. From the plan now, the links are pretty unclear.
+
 \subsection{Paragraph 1}
 - (Broad) = what is the paper about and why is this interesting, why isn't there an answer already?\\
 - Explanation of difficulties of phylogenetics as a broad topic.\\
 - Accuracy of phylogenetics = consistency (convergence on correct tree), efficiency (rate of convergence with more data added), robustness (how sensitive to violations of robustness)\\
+%TG: I'm not sure these three key words (consistency, efficiency and robustness) have the same meaning to what's described in brackets. Maybe prefer using your own words.
 - Use of fossils for dating trees.\\
 - Importance of node dating and divergence times.\\
+%TG: This whole paragraph seems a bit confusing, what are you actually trying to say? Where do you want to go with that? Regarding your title I would go more directly into the topic:
+%TG: 1 - dates on a phylogeny (or dating) depens directly on which data is available and how much of this data is available. 
+%TG: 2 - the more ancient fossils you have, the better the dates would be (technically) 
 
 \subsection{Paragraph 2}
 - (Focusing)
 - Mammals in phylogenetics.\\
 - Mammal divergence estimates around K-pg.\\
 - 
+%TG: develop more on the state-of-the-art in mammal phylogenies here: is there a consensus? What are the variations? Are they due to different methods or different datasets? What does these differences imply in our understanding of mammal evolution
 
 \subsection{Paragraph 3}
 - (Focused)
 - Hypotheses
 - How is this going to be tested? 
 - Why are we testing it in this way?
+%TG: You can always end here with a brief sentence of "what we found".
 
 \subsection{Other Ideas}
+%TG: I am not going to much through these since they look more like lecture notes than part of the plan.
 - define Phylogenetics\\
 major Methods of phlyogenetics:\\ 
 - Phenetic distance based methods (Neighbour-joining)\\
 - Character based methods (Bayesian, MP and ML)\\
 what can Phylogenetics do for us?\\
+%TG: bit of confusion between the mahor methods here. NJ is an algorithm used in both Bayesian, MP and ML. Phenetic = related to the phenotype. Character (in your case discrete morphological characters) are totally phenetic. Bayesian and ML involve distance methods.
 
 accuracy of Phylogenitic trees?\\
 - consistency (convergence on correct tree)\\
 - efficiency (rate of convergence with more data added)\\
 - robustness (how sensitive to violations of robustness)\\
+%TG: same comment as above. These "buzz" words mean other things than your definition in brackets.
 
 missing data effects\\
 
@@ -51,6 +63,7 @@ molecular improvements\\
 models\\
 
 fossils in phlyogenetics - 50 billion species, 99\% extinct \\
+%TG: where did you got that 50 Billion value???
 - fossils can provide a strong basis of evolutionary classification, when adequate data is available \\
 - fossils can alter exisiting relationships and infer new ones\\
 - Break-up long branches\\
@@ -62,6 +75,7 @@ fossil calibrations\\
 - node dating\\
 - tip dating \\
 - total evidence analysis (node + tip dating)\\
+%TG: No Total Evidence = molecular + morphological data. Nothing to do with dating.
 
 Node dating = most common method >2000 references\\
 Node and tip dating = improves the resolution and greater support for ages/posteriors, can be less sensitive to priors\\
@@ -81,46 +95,52 @@ Fossilized birth-death process = probability of the tree and fossil observations
  - Halliday and Goswami matrix \citep{halliday2016eutherian} (177 taxa (115 unique), 680 characters (222 unique).\\ 
  - (59 common species)\\
 
-2). Create a super matrix in excel to standardise the data format and naming system.\\
+2). Create a super matrix in excel to standardise the data format and naming system.\\ %TG: the fact that you're using Excel is not important here.
  - Characters formatted as: \\
  - Author = Original author of character.\\
- - OCN = Original character number (where found).\\
+ - OCN = Original character number (where found).\\ %TG: try to avoid abbreviations like plague. Some are pretty usual (like ML - though still needs to be defined) but making up some makes the text just more annoying to read and understand (I don't know if you where planning to use them).
  - Name = First three letters of author, date of publication (last two digits of four digit year), code of character type, number identifier within.\\ character type. \\ 
  - During creation of the super matrix, some descriptions of shared characters were different. In these cases Hallidays descriptions were taken.\\
- - Some of Becks original characters were broken down into subs, more specific characters, by Halliday.\\
+ - Some of Becks original characters were broken %TG: or "split"?
+  down into subs, more specific characters, by Halliday.\\
 
-3). R was used to combine these two data matrices (full code in supplementary?).\\
+3). R was used to combine these two data matrices (full code in supplementary?).\\ %TG: yes, good idea for the code!
  - The character data from Beck and Halliday was inported to R using a modified ``ReadMorphNexus'' from the Claddis package.\\
  - The matrices were extracted and combined based on unique and common taxa.\\
  - A loop was written to place the added characters into the correct position in the super matrix.\\
  - Some shared characters had flipped states in Hallidays data, a loop was used and a function written (``flip.characters.R'') to re-order the states of these characters according to a list.\\
+ %TG: If you're adding the code in the supplementary, which function you use is not really important. Maybe focus on describing what the code does rather than which one.
 
  4). A modified ``write.nexus.data'' function was used to export the finalised matrix.\\
+ %TG: same, focus on what it's doing.
 
- 5). Paleotree package was used to create the two constraints used. After 
+ 5). Paleotree package was used to create the two constraints used. After %TG: make sure you write the package names correctly (paleotree has no capital P)
  - Halliday's topology constraint\\
 For the Halliday's constraint, we build a majority consensus tree from the topologies of [Halliday and Goswami 2015]\\ (http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract) without branch length (using `ape::consensus` in R).
  - Beck's topology constraint\\
 For the Beck's constraint, we build a majority consensus tree from the 7 constrained topologies of [Beck and Lee 2014]\\ (http://rspb.royalsocietypublishing.org/content/281/1793/20141278) without branch length (using `ape::consensus` in R).
 We selected the constrained trees only to avoid to much noise from the unconstrained topologies.
+%TG: not sure about the noise. The constrain is more to speed up the MCMC.
 
 \subsection{Tree Creation}
 
 1). Trees were created using Mr Bayes (Nexus files available in Supp.)\\
 
 2). parameters\\
-- outgroup Nanolestes = why?
+- outgroup Nanolestes = why? %TG: yes you need to specify that
 - delete taxa Laindon, Montamalestes, Kharmerungulatum, Alymlestes = Because these are unstable taxa\\
-- constrained the ingroup and root to seperate groups (1 and 2)\\
+- constrained the ingroup and root to seperate groups (1 and 2)\\ %TG: why?
 - clockvarpr=igr (independent gamma rates) =it is the rate at which the variance of the effective branch length increases over time,\\
-- brlenspr=clock:fossilization (birth-death-rate) = why?\\
+- brlenspr=clock:fossilization (birth-death-rate) = why?\\ %TG: yes, you need to explain
 - fixed tip dating = Beck species tips dated as Becks dates, Hallidays additional species dated using fossilworks, for these two species (!!!!) ages were taken from the age of the messel pit formation. = why?\\
 - constrain the combined tree by Becks original tree, then Hallidays original tree, [then by both combined (!!!!)]\\
 - 2 runs = why?\\
 - 4 chains = why?\\
 - burnin of (!!!!) = why?\\
+%TG: the last three parameters don't require that much justification. It is important however to explain the other bits. They are advanced phylogenetic methods and the people that will mark your report will want to know if you just used them because I said so or if you actually understand what's happening there.
 
 \subsection{Other}
+%TG: where does that section fit?
 
 combine two morphological data sets using R \\
 - Assumptions: \\ 
@@ -129,14 +149,16 @@ combine two morphological data sets using R \\
 - Alterations:\\
 - Some characters from Beck and Lee were broken down in Halliday and Goswami’s matrix. \\
 - Some character states were also reversed between matrices. These were altered in the nexus and are marked in the character table. \\
+%TG: this needs to be explained
  
 Combined using R - Adding Becks unique taxa and characters to Hallidays matrix. \\ 
 
-use composite matrix to run Bayesian analysis\\
+use composite %TG: or combined?
+ matrix to run Bayesian analysis\\
 create constraints using PaleoTree package in R\\
 packages used: Devtools, Claddis, PaleoTree \\
 
-- What is the overall design of study?\\
+- What is the overall design of study?\\ %TG: uh? - OK I didn't check this bit, I assume they're just notes
 - What are the variables and how do they relate to the hypotheses?\\
 - How/where get the data?\\
 - What are the characteristics of the data set / experiment -- how many observations, how many replicates etc.\\
@@ -153,12 +175,12 @@ packages used: Devtools, Claddis, PaleoTree \\
 
 - What’s the main thing we know now that we didn’t know before? What affect did adding data have on the node ages?\\
 
-- What’s the chain of logic and results that means we know this answer?\\
+- What’s the chain of logic and results that means we know this answer?\\ %TG: uh?
 
 - How does this affect our future research? What are the possible implications of this answer?\\
 
 - Caveats\\
-- Time constraints limited the number of generations trees could run for.\\
+- Time constraints limited the number of generations trees could run for.\\  %TG: generations in the MCMC not trees
 - Limited time also meant heavy constraints were needed and fewer parameter combinations could be tested.\\
 - What might be done about them? (Very important in a project write-up -- What would you do differently if you were doing the project again or had more time?)\\
 
