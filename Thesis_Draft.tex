@@ -1,0 +1,336 @@
+
+
+\documentclass[11pt,letterpaper]{article}
+\usepackage[top=0.85in,left=1.5in,footskip=0.75in]{geometry}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+%\bibliographystyle{plos2015}
+
+\usepackage[left]{lineno}
+\usepackage[table]{xcolor}
+
+\usepackage{setspace} 
+\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+
+
+\begin{document}
+
+\section{title}
+
+How does adding data change node age estimation in morphological phylogenies?
+
+\section*{Abstract}
+
+\linenumbers
+
+\section*{Introduction}
+
+Phylogenetics has been a fundermental cornerstone of evolutionary biology since Darwins first drawing in The Origin of Species, helping to elucidate the relationships and the divergences between different taxa. Moreover, these divergences can be estimated in relation to time, allowing us to propose excatly when speciation events may have occured. The timing of these pivitol events can be of great importance when studying evolutionary history and many advances have been made to the techniques used in order to more precisely estimate these significant evolutionary dates.
+
+Billions of species have existed on earth during its history, the majority of those species are now extinct and therefore a large proportion of linneages no longer have any extant taxa through which molecular data can be gained and analysed using classic clock methods \citep{turner2017empirical}. To succesfully date these phylogonies requires the  use of morphological fossil data. The chronostratigraphic data available from fossils is the only explicit source for absolute timing in phylogenies \citep{turner2017empirical}, making them indespensible in analyses, despite some drawbacks. The incorporation of these data comes with uncertainty from missing data, difficulties in correctly dating stratigraphies, identifying specimens and the ever present knowledge that each specimen is only the earliest recorded appearence of a species and due to variation in preservation and perhaps not its true origin. Using fossils to date phylogenies started with thier application to internal nodes using prior probability distributions. An early method to dating the origins of phylogenetic phenomona was called ghost lineage analysis, named for its side effect of predicting unsampled fossil diversity \citep{norell1992taxic}. This method took the stratigraphic ranges of species and connected them to undated trees produced by cladistic parsimony. Then on the assumption that sister lineages will have the same origin date with more distant related species branching earlier, ghost lineage analysis could use the oldest member of each sister clade to predict the minimum divergence dates \citep{norell1992taxic}. This method however will always only provide the minimum time estimate, and cannot describe the true date of origin. 
+
+The earliest method for dating phylogenies using more than just fossils was achieved by assuming a constant molecular clock that was calibrated using the fossil record \citep{zuckerkandl1962molecular}. However it soon became apparent that this constant molecular clock was not adequate as over time and across lineages there was a significant variation in the rate of molecular evolution. This led to the use of the relaxed-clock models that had multiple points for calibration from fossils \citep{drummond2006relaxed}. When paired with models of speciation event distribution over time such as; the Yule model, that assumes a constant rate of speciation across lineages with no extinction, \citep{yule1925mathematical} or the birth-death process, in which a lineage at any point in time can speciate or go extinct and connected by diversification rate and turnover \citep{kendall1948generalized} we can infer the absolute rates and node ages. To accomodate this developing complexity in the methodology and to cope with the increasing size of data sets, analyses using Bayesian inference has also become more prevelant, allowing uncertainty in analyses to remain. Despite these considerations on rate variation, there has been little change to the calibrations themselves. A relitively new method for calibrating phylogonies is the fossilized birth-death process \citep{heath2014fossilized}, a prior for dating divergence times, which aims to define the distribution of fossils and speciation times. This is acheived by informing on the uncertainty for each speciation event in a phylogony through its parameters: ``Speciation rate, extinction rate, fossil recovery rate and the proportion of sampled extant species.  
+
+Although node dating is the most common method of phylogenetic dating with over 2000 references, it requires indirect methods that may lead to misrepresentation of the data \citep{turner2017empirical}. However, this is not the only available avenue for the information fossils provide. In paleontological data sets containing some extant species then tip-dating can provide divergence estimation along with absolute rates and times when coupled with the models of evolutionary change \citep{pyron2011divergence}. Tip dating allows fossils to be fully intergrated within phylogenetic analyses tree building, rather than provisionally. Recently this methodology has been adapted and applied to morphology-based fossil-only datasets \citep{slater2015iterative}, such as the data set used in our study. Total-evidence data takes this one step further by using this paleontological data to derive the placement of fossils at the same time as calibrating the tree, thereby removing the need to directly calibrate or place fossils onto the tree. This can improve the resolution and provide greater support for ages and posterior probabilities whilst being less sensitive to priors.  
+
+Time-calibration is a fundermental step in phylogentics that allows for a multitude of evolutionary questions to be asked, from patterns of coevolution and speciation to historical biogeography and climatic-biotic interactions over time \citep{heath2014fossilized}. One such date of significance with particular popularity and contention is the origin of placental mammals that has been an ongoing debate for decades. For a long time the most popular theory was that the `Age of Mammals' began with the Cretaceous-Paleogene mass extinction that brought the dinosaurs to an end and allowed the rapid radiation of mammals. Whilst a post K-pg date for thier radiation is still widely accepted, the exact date of thier origin is much more debated. There is evidence for the early Cenozoic \citep{wible2007cretaceous} dated by the oldest definitive paleontogloical evidence for placentals, through the late Cretaceous \citep{archibald2011protungulatum}, \citep{hooker2014new} and even earlier dates brought to light through molecular dating estimates \citep{dos2012phylogenomic}.   
+
+The main objective of our study is to illustrate how node age estimations can change with the addition of data when using morphology-based fossil-only data sets. Futhermore additional aims seek to experiment with the new parameter, the fossilized birth-death process. This will be achieved by comparing a new tree, created from the data sets of two recently published trees based on the origins of placentalia, and those original trees. The new tree will be built using Bayesian inference and the fossilzed birth-death process. The first original tree published by Beck and Lee (2014) was also built using Bayesian inference and a relaxed clock method. The second original tree published by Halliday and Goswami (2015) was built using Maximum Parsimony.
+
+\section*{Methods}
+
+\subsection*{Data Combination}
+
+The final combined matrix used in this analysis consists of 221 taxa from across the Eutharian clade with 6 outgroup taxa and 694 characters representing dental, cranial and postcranial variation, creating an extensive morphological data set of Eutharia and its outgroups. The taxa and characters used were drawn from two morphological data matrices and compiled into a super matrix which standardised the formatting and naming system in an effort to expedite similar future work using this data. The first of these data sets was taken from Beck and Lee's (2014) paper (2014) and this provided 421 characters, 13 of which were unique between the two data sets, with 102 taxa, 47 of which these were unique. The second data set was taken from Halliday and Goswami's (2015) paper !!!! which provided an additional 222 novel characters and 680 characters in total with 177 taxa, 115 of these were unique. To successfully combine these two matrices, they were both formatted with the following system: the `Author', reffering to the oldest known use of that character, the `Original character number' within its first publicised use where available, their `Name' and their states. The `Name' given to each character was created using the first 3 letters of the author, the date of its original publication final 2 digits of the year, the character type code full list in supp !!!! and the numerical identifier within each type. The states of each character where kept as originally described with the exception of characters shared between the matrices with the description by Halliday selected as the most accurate or up-to-date. Some of the original characters from Beck and Lee's (2014) matrix were split into several more specific sub-characters in Halliday and Goswami's matrix (2015); these were grouped together and preserved during the combining of the matrix.
+
+To create the combined matrix used in this analysis we used R v. 3.4.1 R Core Team, (2014), the full code is provided in the supplementary data. The origianl character data sets from Beck and Halliday were imported to R using a modified ``ReadMorphNexus'' from the Claddis package, allowing ... From this data the matrices were extracted and those species that were common to both were matched to prevent over-representation of individual species. We used Hallidays matrix as our starting point as it was the larger of the two, then in order to create the combined matrix we first had to create sub-matrices. The first of these contained Becks unique species with Hallidays characters, using a loop to correctly place the characters in thier columns this sub-matrix could be added to Hallidays. The second sub-matrix consisted of Becks unique characters and Hallidays taxa; this was then combined with a third sub-matrix made up of Becks taxa and unique characters. Both were then added to the main matrix to create the final combined matrix. Some shared characters had states that had been reversed or dis-ordered between the two orignal matrices. Therefore these required converting within the final matrix using a conversion list and created function `flip.characters'.
+
+\subsection*{Tree Creation}
+
+We created our trees using bayseian inference in the MrBayes software cite!!!!. Due to shortages in available time, both trees were created from 2 runs with 4 chains and were run with a priori constraints in keeping with current views on placental phylogeny and therefore avoid much noise from the unconstrained topologies and speed up the mcmcs. These constraints were created using the `paleotree' package in R and using `ape::consensus`. For the Halliday constraint, we built a majority consensus tree from the topologies of Halliday and Goswami (2015) http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract without branch lengths. For the Beck constraint, we built a majority consensus tree from the 7 constrained topologies of Beck and Lee (2014) http://rspb.royalsocietypublishing.org/content/281/1793/20141278 without branch lengths. For our outgroup we used Nanolestes, the oldest non-therian cladotherian taxa. We constrained the ingroup and root to seperate groups and calibrated the root with a uniform date of between 161-199 mya, mid-late Jurassic. Independent gamma rate clock was used for the rate at which the variance of the effective branch length increases over time. Fixed tip dates were added to further constrain the topology of the trees and speed up the mcmc. The dates were taken from Beck and Lee's (2014) parameters for their taxa, Hallidays additional taxa were dated using the oldest dates available for each taxon on fossilworks. For the two species Eomanis and Eurotamandua whose exact/direct ages were not available on fossilworks, surrogate ages were used from that of the messel pit formation where both species were discovered. The clock model chosen for this analysis was a relitively new method of fossil calibration. The aim of the fossilized birth-death process is to more accurately estimate node ages by clearly stating that extant taxa and fossil taxa are under the same evolutionary process, calirating nodes through an individual diversification model.
+
+\subsection*{Node Estimation}
+
+Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotate packages. Two trees from Beck and Lees paper (2014) were used, the first with placentalia constrained to 98mya and the second with placentalia constrained to 66mya. Two trees from Halliday were also used and finally two trees from this study produced as above. The trees were read into R where the mean, median and hpd 95\% values were extracted from the nodes of interest: Eutharia, Placentalia, Metatheria, Artiodactyla, Primates, Carnivora, Sirenia, Glires, Xenarthra, Paenungulata, Notoungulata, Euarchonta, Ferae. The resulting data was summerised and is shown below. 
+
+\section{Results} 
+
+\subsection*{Plot of node ages against data sets}
+
+%\begin{figure}[!htbp]
+%\centering
+%   \includegraphics[width=1\textwidth]{path_to_your_figure.pdf} 
+%\caption{blbalbalbal caption}
+%\label{your_figure_label}
+%\end{figure}
+
+\subsection*{Table of raw node ages}
+
+%\begin{figure}[!htbp]
+%\centering
+%   \includegraphics[width=1\textwidth]{path_to_your_figure.pdf} 
+%\caption{blbalbalbal caption}
+%\label{your_figure_label}
+%\end{figure}
+
+\section*{Discussion}
+
+We investigated the effect of adding data on node date estimation on large morphology-based fossil-only data sets.
+
+The reult of this study suggests...
+
+We concluded that ...
+
+Further research may include ... Could focus on... expand on...
+
+Should be using molecular \citep{puttick2016dating} 
+
+The main limitating factor of this study was that of available time and computational power. These caveats meant that our MCMC chains could not run for as long as we hoped or needed in order to fully realise the aims of the investigation. Moreover heavy constraints were required to speed up the MCMC and only a few parameter combinations could be tested before running the final set. With more time and resources it would be possible to fully explore more parameter options and compare a larger number of trees using the combined data set. These would include running a maximum parsimony for the combined tree and Beck and Lee's (2014) original tree in order to allow better comparisons of both to Halliday and Goswami's (2015) original tree. Additionally, further study could look at the effects seen here when the use of molecular data for the extant taxa was included. The use of soley morphological data to estimate node ages, as we did here in the combined matrix tree, undoubtably warrants further study as this approach remains rather novel and the effects when paired with different models and methods undertested Beck and Lee, 2014 ;  Lee et al., 2014. 
+
+\nolinenumbers
+
+\section*{Supporting Information}
+
+\paragraph*{Combined Tree File}
+\label{S1_Fig}
+{\bf Bold the title sentence.} Add descriptive text after the title of the item optional.
+
+\paragraph*{Original Halliday Tree File}
+\label{S2_Fig}
+{\bf Lorem ipsum.} Maecenas 
+
+\paragraph*{Original Beck Tree File}
+\label{S1_File}
+{\bf Lorem ipsum.}  Maecenas 
+\paragraph*{MB command file}
+\label{S1_Video}
+{\bf Lorem ipsum.}  Maecenas 
+
+\paragraph*{R code}
+\label{S1_Appendix}
+{\bf Lorem ipsum.} Maecenas 
+
+
+
+\subsection{Other/Research/Ideas}
+
+
+Maximum parsimony analysis works well for generating trees, it is less well suited at evaluating support for different phylogenetic relationships particularly with fossil taxa. Here, bayesian inference methods provide provide a more open and programmable approach, allowing a priori parameters to be applied. This is of particular interest here as bayesian inference allows a priori calibration of geological dates. A recent simulation study revealed that a Bayesian inference method outperforms Maximum parsimony when applied to discrete characters and when there is missing data.
+
+Bayesian handles missing data better.
+
+MCMC method estimates the posterior probability of a tree as its frequency in a distribution of trees. Trees are evaluated and retained in this distribution in an iterative manner, retaining trees with a probabiltity proportional to how much worse or better the new tree is compared to the last. Each new tree is a generation in a chain.
+
+Dated phylogenetic analysis, a recent development in cladisitcs, takes advantage of fossil data and the geological associated with them to constrain branch lengths.   
+
+MCC The trees sampled in a dated Bayesian analysis are summarized in a maximum clade credibility MCC tree, which shows the posterior probability for each clade. A clade's posterior probability is just the proportion of times the clade appears in trees in the MCMC sample. This means that the posterior probabilities of the MCC tree are coarse analogues of bootstrap values in the maximum parsimony framework.
+
+A Bayes factor is a ratio of marginal likelihoods of two different hypotheses, and is interpreted as the relative ability of each hypothesis to predict the data. A hypothesis that is more likely to lead to the observed dataset will produce a higher marginal likelihood than one that is less likely to have given rise to the observed dataset, and this will result in a high Bayes factor. In Bayes factor tests, competing hypotheses are represented as differing topological constraints on trees, and the aforementioned procedure for inferring trees is employed to produce the best fully defined hypotheses of relationship consistent with each constraint. The fits of these constrained trees to the data can then be compared.
+
+byproduct of dated Bayesian analysis is a “morphological clock” estimate of the age of any undated terminal node. Such ages are produced by combining the rate of change for each character derived from the underlying model, the inferred tree, and the ages of geologically-dated terminal tips on the one hand with the character states exhibited by the undated tip on the other. While morphological data have been used in concert with molecular data to estimate the age of taxa without geological dates in a number of dated Bayesian analyses e.g., Pyron, 2011; Ronquist et al., 2012a ;  Wood et al., 2013, 
+
+------ we believe the exclusive use of morphological data to generate age estimates is novel, and remains untested see discussion in Beck and Lee, 2014 ;  Lee et al., 2014. With this in mind, we used a jackknife resampling procedure to assess the reliability of the morphological clock age for the Dinaledi fossils yielded by the dated Bayesian analysis. ----------- Possilbe further study discussion????
+
+Bayesian inference of phylogeny uses a liklihood function to create a quantity called the posterior probability of trees using a model of evolution, based on some prior probabilities, producing the most likely phylogenetic tree for thte given data. The proir probability of a tree represents the probabiltiy of the tree before the observations have been made. Typically all trees are considered equally probable, a priori. However, other information can be used to give some trees more prior probability eg. the taxonomy of a group. The liklihood is proportional to the probability of the observations conditional on the tree. This probability requires making specific assumptions about the processes generating the observations. The posterior probability of a tree is the probability of the tree conditional on the observations. It is obtained by combinging the prior and liklihood for each tree using Bayes' formula.Parameter space is assessed the a Markov Chain Monte Carlo investigating new trees original trees are perturbed and assessed for their posterior probability and then either rejected or accepted. There is no endpoint optimum, only when the investigator ends the chain generations. A majority rule consensus tree is then presented.
+
+Ideally, molecular clock calibrations are obtained from accurately dated fossils that can be assigned to nodes with high phylogenetic precision Graur and Martin 2004, but reality is generally far from this ideal because of a number of important problems. The incomplete and imperfect nature of the fossil record means that fossils necessarily only provide evidence for the minimum age of a clade. Many clades will be considerably older than the oldest known fossil; thus, nodes may be constrained to erroneously young ages Benton and Ayala 2003, Donoghue and Benton 2007, Marshall 2008. Incorrect fossil dates also arise from experimental errors in radiometric dating of fossil-bearing rocks or incorrectly assigning fossils to a specific stratum. In addition, misinterpreted character state changes can result in the taxonomic misidentification of fossils or their incorrect placement on the phylogeny Lee 1999. 
+
+\citep{lee2015morphological}
+
+However, with the recognition that fossil species are integral to correctly inferring patterns of character evolution and changes in diversity, as well as in establishing evolutionary timescales, morphological data are enjoying a phylogenetic renaissance 
+
+\citep{dembo2016evolutionary}, \citep{o2016bayesian}
+
+
+\section{Possible Papers/References}
+
+\citep{halliday2016eutherian}
+\citep{halliday2016impact}
+\citep{halliday2017resolving}
+\citep{halliday2016eutherians}
+\citep{beck2014ancient}
+\citep{arcila2015evaluation}
+\citep{near2004assessing}
+\citep{lee2015morphological}
+\citep{puttick2016dating}
+\citep{pyron2016novel}
+\citep{turner2017empirical}
+\citep{heath2014fossilized}
+\citep{wiens2004role}
+\citep{nabhan2011impact}
+\citep{dembo2016evolutionary}
+\citep{o2016bayesian}
+
+
+\bibliographystyle{plainnat}
+\bibliography{References/Biblo}
+
+\end{document}
+
+- Broad = what is the paper about and why is this interesting, why isn't there an answer already?\\
+- Explanation of difficulties of phylogenetics as a broad topic.\\
+- Accuracy of phylogenetics = consistency convergence on correct tree, efficiency rate of convergence with more data added, robustness how sensitive to violations of robustness\\
+%TG: I'm not sure these three key words consistency, efficiency and robustness have the same meaning to what's described in brackets. Maybe prefer using your own words.
+- Use of fossils for dating trees.\\ \citep{}
+- Importance of node dating and divergence times. \citep{turner2017empirical} 
+%TG: This whole paragraph seems a bit confusing, what are you actually trying to say? Where do you want to go with that? Regarding your title I would go more directly into the topic:
+%TG: 1 - dates on a phylogeny or dating depens directly on which data is available and how much of this data is available. 
+%TG: 2 - the more ancient fossils you have, the better the dates would be technically 
+
+\subsection{Paragraph 2}
+- Focusing
+- Mammals in phylogenetics.\\
+- Mammal divergence estimates around K-pg.\\
+- 
+%TG: develop more on the state-of-the-art in mammal phylogenies here: is there a consensus? What are the variations? Are they due to different methods or different datasets? What does these differences imply in our understanding of mammal evolution
+
+% 
+
+\subsection{Paragraph 3}
+- Focused
+- Hypotheses
+- How is this going to be tested? 
+- Why are we testing it in this way?
+%TG: You can always end here with a brief sentence of "what we found".
+
+\subsection{Other Ideas}
+%TG: I am not going to much through these since they look more like lecture notes than part of the plan.
+- define Phylogenetics\\
+major Methods of phlyogenetics:\\ 
+- Phenetic distance based methods - discrete morphological data\\ \citep{wright2014bayesian} - Bayes vs ML outperforms parsimony for phylogeny estimation from discrete morphological data. Bayes deals with uncertainty in a more  explicit way then ML, retaining the uncertainty of branch lengths, model parameters and other parameters in the results.
+
+what can Phylogenetics do for us?\\
+%TG: bit of confusion between the major methods here. NJ is an algorithm used in both Bayesian, MP and ML. Phenetic = related to the phenotype. Character in your case discrete morphological characters are totally phenetic. Bayesian and ML involve distance methods.
+
+accuracy of Phylogenitic trees?\\
+- consistency convergence on correct tree\\
+- efficiency rate of convergence with more data added\\
+- robustness how sensitive to violations of robustness\\
+%TG: same comment as above. These "buzz" words mean other things than your definition in brackets.
+
+missing data effects\\
+
+molecular improvements\\
+
+models\\
+
+fossils in phlyogenetics - 50 billion species, 99\% extinct \\
+%TG: where did you got that 50 Billion value???
+- fossils can provide a strong basis of evolutionary classification, when adequate data is available \\
+- fossils can alter exisiting relationships and infer new ones\\
+- Break-up long branches\\
+- Stabalise uncertain polarities\\
+- Sequence events\\
+- Calculating rates\\
+- minimum ages and the appearences of extant life. Fossils = only tangible evidence of ancient life.
+
+fossil calibrations\\
+- node dating\\
+- tip dating \\
+- total evidence analysis node + tip dating\\
+%TG: No Total Evidence = molecular + morphological data. Nothing to do with dating.
+
+Node dating = most common method >2000 references\\
+Node and tip dating = improves the resolution and greater support for ages/posteriors, can be less sensitive to priors\\
+
+Yule process = assumes a constant rate of speciation across lineages no extinction.\\
+
+Birth-death process = at any point in time a lineage can speciate at rate λ speciation rate or go extinct with a rate of μ extinction rate, connected by diversification rate and turnover.\\
+
+Fossilized birth-death process = probability of the tree and fossil observations under a birth-death model. Improves inference of nodes. Better capture statistical uncertainty. Turnover and diversification rates now linked by fossil recovery rate and the probability of fossil recovery.\\
+
+- What’s the main thing we know now that we didn’t know before? What affect did adding data have on the node ages?\\
+
+- What’s the chain of logic and results that means we know this answer?\\ %TG: uh?
+
+- How does this affect our future research? What are the possible implications of this answer?\\
+
+- What future work could build more broadly on what we’ve found?\\
+- How may this study in this area be of interest to other work in other areas, or other systems.\\
+
+- Link\\
+
+1. Gather data in the form of two morphological data sets \\
+ - Beck and Lee character matrix \citep{beck2014ancient} 102 taxa 47 unique, 421 characters 13 unique combined with..\\  
+ - Halliday and Goswami matrix \citep{halliday2016eutherian} 177 taxa 115 unique, 680 characters 222 unique.\\ 
+ - 59 common species\\
+
+2. Create a super matrix in excel to standardise the data format and naming system.\\ %TG: the fact that you're using Excel is not important here.
+ - Characters formatted as: \\
+ - Author = Original author of character.\\
+ - OCN = Original character number where found.\\ %TG: try to avoid abbreviations like plague. Some are pretty usual like ML - though still needs to be defined but making up some makes the text just more annoying to read and understand I don't know if you where planning to use them.
+ - Name = First three letters of author, date of publication last two digits of four digit year, code of character type, number identifier within.\\ character type. \\ 
+ - During creation of the super matrix, some descriptions of shared characters were different. In these cases Hallidays descriptions were taken.\\
+ - Some of Becks original characters were broken %TG: or "split"?
+  down into subs, more specific characters, by Halliday.\\
+
+3. R was used to combine these two data matrices full code in supplementary?.\\ %TG: yes, good idea for the code!
+ - The character data from Beck and Halliday was inported to R using a modified ``ReadMorphNexus'' from the Claddis package.\\
+ - The matrices were extracted and combined based on unique and common taxa.\\
+ - A loop was written to place the added characters into the correct position in the super matrix.\\
+ - Some shared characters had flipped states in Hallidays data, a loop was used and a function written ``flip.characters.R'' to re-order the states of these characters according to a list.\\
+ %TG: If you're adding the code in the supplementary, which function you use is not really important. Maybe focus on describing what the code does rather than which one.
+
+ 4. A modified ``write.nexus.data'' function was used to export the finalised matrix.\\
+ %TG: same, focus on what it's doing.
+
+ 5. Paleotree package was used to create the two constraints used. After %TG: make sure you write the package names correctly paleotree has no capital P
+ - Halliday's topology constraint\\
+For the Halliday's constraint, we build a majority consensus tree from the topologies of [Halliday and Goswami 2015]\\ http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract without branch length using `ape::consensus` in R.
+ - Beck's topology constraint\\
+For the Beck's constraint, we build a majority consensus tree from the 7 constrained topologies of [Beck and Lee 2014]\\ http://rspb.royalsocietypublishing.org/content/281/1793/20141278 without branch length using `ape::consensus` in R.
+We selected the constrained trees only to avoid to much noise from the unconstrained topologies.
+%TG: not sure about the noise. The constrain is more to speed up the MCMC.
+
+1. Trees were created using Mr Bayes Nexus files available in Supp.\\
+
+2. parameters\\
+- outgroup Nanolestes = why? %TG: yes you need to specify that
+- delete taxa Laindon, Montamalestes, Kharmerungulatum, Alymlestes = Because these are unstable taxa\\
+- constrained the ingroup and root to seperate groups 1 and 2\\ %TG: why?
+- clockvarpr=igr independent gamma rates =it is the rate at which the variance of the effective branch length increases over time,\\
+- brlenspr=clock:fossilization birth-death-rate = why?\\ %TG: yes, you need to explain
+- fixed tip dating = Beck species tips dated as Becks dates, Hallidays additional species dated using fossilworks, for these two species !!!! ages were taken from the age of the messel pit formation. = why?\\
+- constrain the combined tree by Becks original tree, then Hallidays original tree, [then by both combined !!!!]\\
+- 2 runs = why?\\
+- 4 chains = why?\\
+- burnin of !!!! = why?\\
+%TG: the last three parameters don't require that much justification. It is important however to explain the other bits. They are advanced phylogenetic methods and the people that will mark your report will want to know if you just used them because I said so or if you actually understand what's happening there.
+
+%TG: where does that section fit?
+
+combine two morphological data sets using R \\
+- Assumptions: \\ 
+- Halliday character states/descriptiions updated Becks\\ 
+
+- Alterations:\\
+- Some characters from Beck and Lee were broken down in Halliday and Goswami’s matrix. \\
+- Some character states were also reversed between matrices. These were altered in the nexus and are marked in the character table. \\
+%TG: this needs to be explained
+ 
+Combined using R - Adding Becks unique taxa and characters to Hallidays matrix. \\ 
+
+use composite %TG: or combined?
+ matrix to run Bayesian analysis\\
+create constraints using PaleoTree package in R\\
+packages used: Devtools, Claddis, PaleoTree \\
+
+- What is the overall design of study?\\ %TG: uh? - OK I didn't check this bit, I assume they're just notes
+- What are the variables and how do they relate to the hypotheses?\\
+- How/where get the data?\\
+- What are the characteristics of the data set / experiment -- how many observations, how many replicates etc.\\
+- General procedures, if any, that are true in all of the analyses e.g., transformation of data, model checking, how models were compared\\
+- How did you test the hypotheses, in the logical order outlined in the introduction i.e., from the general to the specific? Make sure you show that your tests are appropriate.\\
