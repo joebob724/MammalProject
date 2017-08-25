@@ -1,10 +1,17 @@
 
 
 \documentclass[11pt,letterpaper]{article}
-\usepackage[top=0.85in,left=1.5in,footskip=0.75in]{geometry}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
 \usepackage{natbib}
 \bibliographystyle{plainnat}
 %\bibliographystyle{plos2015}
+
+%\usepackge{fancyhdr}
+%\pagestyle{fancy}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
 
 \usepackage[left]{lineno}
 \usepackage[table]{xcolor}
@@ -28,15 +35,69 @@
 
 \begin{document}
 
-\section{title}
+%begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \large
+        \textbf{How does adding data change node age estimation in morphological phylogenies?}
+        
+        %\vspace{0.5cm}
+        %\LARGE
+        %Thesis Subtitle
+        
+        \vspace{1.5cm}
+        
+        \textbf{Joseph Craig}
+        
+        \vspace{6cm}
+        
+        \Large
+        A thesis submitted in partial fulfilment of the requirements for the degree of Master of Science at\\
+        Imperial College London\\
+        Formatted in the journal style of the !!!! jounal\\
+        Submitted for the MSc in 2017\\
+        
+        \vspace{1.0cm}
+                
+        \Large
+        Imperial College London\\
+        United Kingdom\\
+        09/2017\\
+        
+    \end{center}
+%\end{titlepage}
 
-How does adding data change node age estimation in morphological phylogenies?
+\newpage
 
-\section*{Abstract}
+\section*{Declaration}
 
-\linenumbers
+\newpage
 
-\section*{Introduction}
+%\section*{Abstract}
+
+\thispagestyle{plain}
+\begin{center}
+	\large
+	\textbf{How does adding data change node age estimation in morphological phylogenies?}
+
+	\vspace{0.4cm}
+	\textbf{Joseph Craig}
+
+	\vspace{0.9cm}
+	\textbf{Abstract}
+\end{center}
+
+This paper..... bla bla 
+
+\newpage
+
+\tableofcontents
+
+\newpage
+% \linenumbers
+
+\section{Introduction}
 
 Phylogenetics has been a fundermental cornerstone of evolutionary biology since Darwins first drawing in The Origin of Species, helping to elucidate the relationships and the divergences between different taxa. Moreover, these divergences can be estimated in relation to time, allowing us to propose excatly when speciation events may have occured. The timing of these pivitol events can be of great importance when studying evolutionary history and many advances have been made to the techniques used in order to more precisely estimate these significant evolutionary dates.
 
@@ -50,25 +111,33 @@ Time-calibration is a fundermental step in phylogentics that allows for a multit
 
 The main objective of our study is to illustrate how node age estimations can change with the addition of data when using morphology-based fossil-only data sets. Futhermore additional aims seek to experiment with the new parameter, the fossilized birth-death process. This will be achieved by comparing a new tree, created from the data sets of two recently published trees based on the origins of placentalia, and those original trees. The new tree will be built using Bayesian inference and the fossilzed birth-death process. The first original tree published by Beck and Lee (2014) was also built using Bayesian inference and a relaxed clock method. The second original tree published by Halliday and Goswami (2015) was built using Maximum Parsimony.
 
-\section*{Methods}
+\newpage
 
-\subsection*{Data Combination}
+\section{Methods}
+
+\subsection{Data Combination}
 
 The final combined matrix used in this analysis consists of 221 taxa from across the Eutharian clade with 6 outgroup taxa and 694 characters representing dental, cranial and postcranial variation, creating an extensive morphological data set of Eutharia and its outgroups. The taxa and characters used were drawn from two morphological data matrices and compiled into a super matrix which standardised the formatting and naming system in an effort to expedite similar future work using this data. The first of these data sets was taken from Beck and Lee's (2014) paper (2014) and this provided 421 characters, 13 of which were unique between the two data sets, with 102 taxa, 47 of which these were unique. The second data set was taken from Halliday and Goswami's (2015) paper !!!! which provided an additional 222 novel characters and 680 characters in total with 177 taxa, 115 of these were unique. To successfully combine these two matrices, they were both formatted with the following system: the `Author', reffering to the oldest known use of that character, the `Original character number' within its first publicised use where available, their `Name' and their states. The `Name' given to each character was created using the first 3 letters of the author, the date of its original publication final 2 digits of the year, the character type code full list in supp !!!! and the numerical identifier within each type. The states of each character where kept as originally described with the exception of characters shared between the matrices with the description by Halliday selected as the most accurate or up-to-date. Some of the original characters from Beck and Lee's (2014) matrix were split into several more specific sub-characters in Halliday and Goswami's matrix (2015); these were grouped together and preserved during the combining of the matrix.
 
 To create the combined matrix used in this analysis we used R v. 3.4.1 R Core Team, (2014), the full code is provided in the supplementary data. The origianl character data sets from Beck and Halliday were imported to R using a modified ``ReadMorphNexus'' from the Claddis package, allowing ... From this data the matrices were extracted and those species that were common to both were matched to prevent over-representation of individual species. We used Hallidays matrix as our starting point as it was the larger of the two, then in order to create the combined matrix we first had to create sub-matrices. The first of these contained Becks unique species with Hallidays characters, using a loop to correctly place the characters in thier columns this sub-matrix could be added to Hallidays. The second sub-matrix consisted of Becks unique characters and Hallidays taxa; this was then combined with a third sub-matrix made up of Becks taxa and unique characters. Both were then added to the main matrix to create the final combined matrix. Some shared characters had states that had been reversed or dis-ordered between the two orignal matrices. Therefore these required converting within the final matrix using a conversion list and created function `flip.characters'.
 
-\subsection*{Tree Creation}
+\newpage
+
+\subsection{Tree Creation}
 
 We created our trees using bayseian inference in the MrBayes software cite!!!!. Due to shortages in available time, both trees were created from 2 runs with 4 chains and were run with a priori constraints in keeping with current views on placental phylogeny and therefore avoid much noise from the unconstrained topologies and speed up the mcmcs. These constraints were created using the `paleotree' package in R and using `ape::consensus`. For the Halliday constraint, we built a majority consensus tree from the topologies of Halliday and Goswami (2015) http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract without branch lengths. For the Beck constraint, we built a majority consensus tree from the 7 constrained topologies of Beck and Lee (2014) http://rspb.royalsocietypublishing.org/content/281/1793/20141278 without branch lengths. For our outgroup we used Nanolestes, the oldest non-therian cladotherian taxa. We constrained the ingroup and root to seperate groups and calibrated the root with a uniform date of between 161-199 mya, mid-late Jurassic. Independent gamma rate clock was used for the rate at which the variance of the effective branch length increases over time. Fixed tip dates were added to further constrain the topology of the trees and speed up the mcmc. The dates were taken from Beck and Lee's (2014) parameters for their taxa, Hallidays additional taxa were dated using the oldest dates available for each taxon on fossilworks. For the two species Eomanis and Eurotamandua whose exact/direct ages were not available on fossilworks, surrogate ages were used from that of the messel pit formation where both species were discovered. The clock model chosen for this analysis was a relitively new method of fossil calibration. The aim of the fossilized birth-death process is to more accurately estimate node ages by clearly stating that extant taxa and fossil taxa are under the same evolutionary process, calirating nodes through an individual diversification model.
 
-\subsection*{Node Estimation}
+\newpage
+
+\subsection{Node Estimation}
 
 Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotate packages. Two trees from Beck and Lees paper (2014) were used, the first with placentalia constrained to 98mya and the second with placentalia constrained to 66mya. Two trees from Halliday were also used and finally two trees from this study produced as above. The trees were read into R where the mean, median and hpd 95\% values were extracted from the nodes of interest: Eutharia, Placentalia, Metatheria, Artiodactyla, Primates, Carnivora, Sirenia, Glires, Xenarthra, Paenungulata, Notoungulata, Euarchonta, Ferae. The resulting data was summerised and is shown below. 
 
+\newpage
+
 \section{Results} 
 
-\subsection*{Plot of node ages against data sets}
+\subsection{Plot of node ages against data sets}
 
 %\begin{figure}[!htbp]
 %\centering
@@ -77,7 +146,7 @@ Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotat
 %\label{your_figure_label}
 %\end{figure}
 
-\subsection*{Table of raw node ages}
+\subsection{Table of raw node ages}
 
 %\begin{figure}[!htbp]
 %\centering
@@ -86,7 +155,9 @@ Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotat
 %\label{your_figure_label}
 %\end{figure}
 
-\section*{Discussion}
+\newpage
+
+\section{Discussion}
 
 We investigated the effect of adding data on node date estimation on large morphology-based fossil-only data sets.
 
@@ -100,9 +171,11 @@ Should be using molecular \citep{puttick2016dating}
 
 The main limitating factor of this study was that of available time and computational power. These caveats meant that our MCMC chains could not run for as long as we hoped or needed in order to fully realise the aims of the investigation. Moreover heavy constraints were required to speed up the MCMC and only a few parameter combinations could be tested before running the final set. With more time and resources it would be possible to fully explore more parameter options and compare a larger number of trees using the combined data set. These would include running a maximum parsimony for the combined tree and Beck and Lee's (2014) original tree in order to allow better comparisons of both to Halliday and Goswami's (2015) original tree. Additionally, further study could look at the effects seen here when the use of molecular data for the extant taxa was included. The use of soley morphological data to estimate node ages, as we did here in the combined matrix tree, undoubtably warrants further study as this approach remains rather novel and the effects when paired with different models and methods undertested Beck and Lee, 2014 ;  Lee et al., 2014. 
 
-\nolinenumbers
+\newpage
 
-\section*{Supporting Information}
+%\nolinenumbers
+
+\section{Supporting Information}
 
 \paragraph*{Combined Tree File}
 \label{S1_Fig}
@@ -123,7 +196,7 @@ The main limitating factor of this study was that of available time and computat
 \label{S1_Appendix}
 {\bf Lorem ipsum.} Maecenas 
 
-
+\newpage
 
 \subsection{Other/Research/Ideas}
 
