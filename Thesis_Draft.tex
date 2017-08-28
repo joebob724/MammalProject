@@ -128,6 +128,8 @@ This suggests that/in the future ...
 
 \section{Introduction}
 
+%TG: General note, especially for the method part. Write in active form! Never ever use passive form in papers. It's pedantic, boring and generates more complex sentences. "Trees were infered using a method" Should be written "We (I) infered trees using a method".
+
 Phylogenetics has been a fundamental cornerstone of evolutionary biology since Darwins first drawing in The Origin of Species, %TG: technically this is wrong. Phylogeny became only important later and were already drawn before Darwin. But no big deal: just try to avoid these "Since Darwin" sentences, they don't bring much and sound awfully "undergraduate" style.
  helping to elucidate the relationships and the divergences between different taxa.
  Moreover, these divergences can be estimated in relation to time, allowing us to propose exactly %TG: or more "propose with some narrow error" rather than exactly
@@ -178,23 +180,84 @@ The main objective of our study is to illustrate how node age estimations can ch
 
 \section{Methods}
 
+%TG: you need some context here. From what I read above, you just detailed some bits of methods in phylogenetic inference but we still have no clue where you're leading us. The methods must come as a logical decision to your research question in the introduction. For example why do you need to combine the matrices, create the trees and estimate node age? How does that fit in the narative you introduced above? Also for the part below, use the proper citation format (like in the introduction) rather than writing down the citations each time.
+
 \subsection{Data Combination}
 
-The final combined matrix used in this analysis consists of 221 taxa from across the Eutharian clade with 6 outgroup taxa and 694 characters representing dental, cranial and postcranial variation, creating an extensive morphological data set of Eutharia and its outgroups. The taxa and characters used were drawn from two morphological data matrices and compiled into a super matrix which standardised the formatting and naming system in an effort to expedite similar future work using this data. The first of these data sets was taken from Beck and Lee's (2014) paper (2014) and this provided 421 characters, 13 of which were unique between the two data sets, with 102 taxa, 47 of which these were unique. The second data set was taken from Halliday and Goswami's (2015) paper !!!! which provided an additional 222 novel characters and 680 characters in total with 177 taxa, 115 of these were unique. To successfully combine these two matrices, they were both formatted with the following system: the `Author', reffering to the oldest known use of that character, the `Original character number' within its first publicised use where available, their `Name' and their states. The `Name' given to each character was created using the first 3 letters of the author, the date of its original publication final 2 digits of the year, the character type code full list in supp !!!! and the numerical identifier within each type. The states of each character where kept as originally described with the exception of characters shared between the matrices with the description by Halliday selected as the most accurate or up-to-date. Some of the original characters from Beck and Lee's (2014) matrix were split into several more specific sub-characters in Halliday and Goswami's matrix (2015); these were grouped together and preserved during the combining of the matrix.
+%TG: start with: "We first combined a matrix blablabla."
+The final combined matrix used in this analysis consists of 221 %TG: way more no?
+ taxa from across the Eutharian clade with 6 outgroup taxa %TG: I thought we used only Nanolesthes? Also, you're talking about placental mammals above and now about Eutherians, you need to define the differences.
+and 694 characters (dental, cranial and postcranial), creating an extensive morphological data set of Eutharia and its outgroups.
+The taxa and characters used were collected from two discrete morphological data matrices and compiled into a super matrix with a standardised formatting and naming system.
+The first of these data sets was taken from Beck and Lee's (2014) and this provided 421 characters, 13 of which were unique between the two data sets, with 102 taxa, 47 of which these were unique.
+The second data set was taken from Halliday and Goswami's (2015) !!!! which provided an additional 222 novel characters and 680 characters in total with 177 taxa, 115 of these were unique.
+%TG: it would be good to have a table representing all that. Somthing like this:
+% \begin{table}
+% \center
+%     \begin{tabular}{r|cccc}
+%             & Taxa & Characters & Unique taxa & Unique characters\\
+%         \hline
+%         \textit{Beck and Lee 2014} & 1 & 1 & 1 & 1\\
+%         \textit{Halliday and Goswami 2015} & 1 & 1 & 1 & 1\\
+%         \textit{This study} & 1 & 1 & 0 & 0\\
+%     \end{tabular}
+%     \caption{...}
+% \end{table}
 
-To create the combined matrix used in this analysis we used R v. 3.4.1 R Core Team, (2014), the full code is provided in the supplementary data. The origianl character data sets from Beck and Halliday were imported to R using a modified ``ReadMorphNexus'' from the Claddis package, allowing ... From this data the matrices were extracted and those species that were common to both were matched to prevent over-representation of individual species. We used Hallidays matrix as our starting point as it was the larger of the two, then in order to create the combined matrix we first had to create sub-matrices. The first of these contained Becks unique species with Hallidays characters, using a loop to correctly place the characters in thier columns this sub-matrix could be added to Hallidays. The second sub-matrix consisted of Becks unique characters and Hallidays taxa; this was then combined with a third sub-matrix made up of Becks taxa and unique characters. Both were then added to the main matrix to create the final combined matrix. Some shared characters had states that had been reversed or dis-ordered between the two orignal matrices. Therefore these required converting within the final matrix using a conversion list and created function `flip.characters'.
+To successfully combine these two matrices, they were both formatted %TG: not the matrices, the characters
+ with the following system: the `Author' %TG: why quotes?
+ , referring to the oldest known use of that character, the `Original character number' within its first publicised use where available %TG: or more: that was its position in the first publicised matrix or something like that?
+ , their `Name' and their states.
+ The `Name' given to each character was created using the first 3 letters of the author, the date of its original publication final 2 digits of the year, the character type code full list in supp !!!! and the numerical identifier within each type. %TG: it will be good to add an example here: "for example character Bec14.01 is for...".
+
+The states of each character where kept as originally described with the exception of characters shared between the matrices with the description by Halliday selected as the most accurate or up-to-date. Some of the original characters from Beck and Lee's (2014) matrix were split into several more specific sub-characters in Halliday and Goswami's matrix (2015); these were grouped together and preserved during the combining of the matrix. %TG: add this information to the supplementary
+
+To create the combined matrix used in this analysis we used R v. 3.4.1 R Core Team, (2014), the full code is provided in the supplementary data.
+The origianl character data sets from Beck %TG: it should be Beck and Lee (2014) throughout, same for Halliday
+and Halliday were imported to R using a modified ``ReadMorphNexus'' from the Claddis package, allowing ... %TG: !!!!
+From this data the matrices were extracted and those species that were common to both were matched to prevent over-representation of individual species.
+We used Halliday's matrix as our starting point as it was the larger of the two, then in order to create the combined matrix we first had to create sub-matrices.
+The first of these contained Beck's unique species with Halliday's characters, using a loop to correctly place the characters in their columns this sub-matrix could be added to Halliday's.
+The second sub-matrix consisted of Becks unique characters and Halliday's taxa; this was then combined with a third sub-matrix made up of Beck's taxa and unique characters.
+Both were then added to the main matrix to create the final combined matrix.
+Some shared characters had states that had been reversed or dis-ordered between the two orignal matrices.
+Therefore these required converting within the final matrix using a conversion list and created function `flip.characters'.
+%TG: I'm not sure if that part is not too detailed. Maybe you'll want to reduce this a bit (especially about the name of the functions...). Instead you can insist on the amount of work you did there: you went through 660+ character definitions and checked wchich one matche which one, etc.
 
 \newpage
 
-\subsection{Tree Creation}
+\subsection{Tree Inference}
 
-We created our trees using bayseian inference in the MrBayes software cite!!!!. Due to shortages in available time, both trees were created from 2 runs with 4 chains and were run with a priori constraints in keeping with current views on placental phylogeny and therefore avoid much noise from the unconstrained topologies and speed up the mcmcs. These constraints were created using the `paleotree' package in R and using `ape::consensus`. For the Halliday constraint, we built a majority consensus tree from the topologies of Halliday and Goswami (2015) http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract without branch lengths. For the Beck constraint, we built a majority consensus tree from the 7 constrained topologies of Beck and Lee (2014) http://rspb.royalsocietypublishing.org/content/281/1793/20141278 without branch lengths. For our outgroup we used Nanolestes, the oldest non-therian cladotherian taxa. We constrained the ingroup and root to seperate groups and calibrated the root with a uniform date of between 161-199 mya, mid-late Jurassic. Independent gamma rate clock was used for the rate at which the variance of the effective branch length increases over time. Fixed tip dates were added to further constrain the topology of the trees and speed up the mcmc. The dates were taken from Beck and Lee's (2014) parameters for their taxa, Hallidays additional taxa were dated using the oldest dates available for each taxon on fossilworks. For the two species Eomanis and Eurotamandua whose exact/direct ages were not available on fossilworks, surrogate ages were used from that of the messel pit formation where both species were discovered. The clock model chosen for this analysis was a relitively new method of fossil calibration. The aim of the fossilized birth-death process is to more accurately estimate node ages by clearly stating that extant taxa and fossil taxa are under the same evolutionary process, calirating nodes through an individual diversification model.
+We created our trees using bayseian inference in the MrBayes software cite!!!!.
+Due to shortages in available time, both trees were created from 2 runs with 4 chains and were run with a priori constraints in keeping with current views on placental phylogeny and therefore avoid much noise from the unconstrained topologies and speed up the mcmcs. %TG: MCMC is capitalised
+These constraints were created using the `paleotree' package in R and using `ape::consensus`.
+For the Halliday constraint, we built a majority consensus tree from the topologies of Halliday and Goswami (2015) http://onlinelibrary.wiley.com/doi/10.1111/bij.12731/abstract %TG: remove the link, same below
+without branch lengths.
+For the Beck constraint, we built a majority consensus tree from the 7 constrained topologies of Beck and Lee (2014) http://rspb.royalsocietypublishing.org/content/281/1793/20141278 without branch lengths.
+For our outgroup we used Nanolestes, %TG: species/genus names in italic please (throughout the text)!
+ the oldest non-therian cladotherian taxa. %TG: define these terms (cladotherian, etc.) if you use them. Even I only have a vague clue of what they mean...
+ We constrained the ingroup and root to seperate groups and calibrated the root with a uniform date of between 161-199 mya, %TG: mya is an acronym (usually Mya), define it the first time. E.g. "161 to 199 million years ago (Mya)"
+  mid-late Jurassic.
+ Independent gamma rate clock was used for the rate at which the variance of the effective branch length increases over time. %TG: this doesn't mean much! The rate at which the rate of the (effective?) branch length increases? Be really careful with those, it's easy enough for a reader to spot that you didn't understood what you wrote here and that you're making up by using "complex" terminology. For the reviewer it's going to be annoying and will not be at your advantage.
+ Fixed tip dates were added to further constrain the topology of the trees and speed up the mcmc. %TG: no the tip dates are not for speeding up for for calculating brranch length using tip-dating.
+ The dates were taken from Beck and Lee's (2014) parameters for their taxa, Hallidays additional taxa were dated using the oldest dates available for each taxon on fossilworks. %TG: This is not clear. I know what you've done but I still needed to read this sentence twice. pro-tip, read these sentence aloud (preferably to a colleague) and see if they make sense! Also, you can simplify by saying you got all the dates from the palaeo data base (or fossilworks, it's the same) since that's where Beck got them from.
+ For the two species Eomanis and Eurotamandua whose exact/direct ages were not available on fossilworks, we used ages from that of the messel pit formation where both species were discovered.
+ The clock model chosen for this analysis was a relatively new method of fossil calibration. %TG: No. See my comments throughout the text.
+ The aim of the fossilized birth-death process is to more accurately estimate node ages by clearly stating that extant taxa and fossil taxa are under the same evolutionary process, calibrating nodes through an individual diversification model. %TG: same.
+
+
+%TG: on a general note for the paragraph here, I would restructure it into something more classic: first the things in common (which datasets, which models, which dates, which mcmc parameters) and then what differs (which constraint and why).
 
 \newpage
 
 \subsection{Node Estimation}
 
-Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotate packages. Two trees from Beck and Lees paper (2014) were used, the first with placentalia constrained to 98mya and the second with placentalia constrained to 66mya. Two trees from Halliday were also used and finally two trees from this study produced as above. The trees were read into R where the mean, median and hpd 95\% values were extracted from the nodes of interest: Eutharia, Placentalia, Metatheria, Artiodactyla, Primates, Carnivora, Sirenia, Glires, Xenarthra, Paenungulata, Notoungulata, Euarchonta, Ferae. The resulting data was summerised and is shown below. 
+Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotate packages. %TG: No. ages were estimated in MrBayes, we just used R to extract these ages.
+Two trees from Beck and Lee (2014) were used, the first with placentalia constrained to 98mya and the second with placentalia constrained to 66mya.
+Two trees from Halliday were also used %TG: which ones?
+and finally two trees from this study produced as above.
+The trees were read into R where the mean, median and hpd 95\% values were extracted from the nodes of interest: Eutharia, Placentalia, Metatheria, Artiodactyla, Primates, Carnivora, Sirenia, Glires, Xenarthra, Paenungulata, Notoungulata, Euarchonta, Ferae.
+The resulting data was summarised and is shown below. %TG: remove this sentence (this is expected anyways). I think you should more focus on this paragraph since it's the key answer to you question: actually analysing the differences in node ages.
 
 \newpage
 
@@ -224,15 +287,22 @@ Node ages were estimated using R v. 3.4.1 R Core Team, with the ape and phylotat
 
 We investigated the effect of adding data on node date estimation on large morphology-based fossil-only data sets.
 
-The reult of this study suggests...
+The result of this study suggests...
 
 We concluded that ...
 
 Further research may include ... Could focus on... expand on...
 
-Should be using molecular \citep{puttick2016dating} 
+Should be using molecular \citep{puttick2016dating} %TG: good point!
 
-The main limitating factor of this study was that of available time and computational power. These caveats meant that our MCMC chains could not run for as long as we hoped or needed in order to fully realise the aims of the investigation. Moreover heavy constraints were required to speed up the MCMC and only a few parameter combinations could be tested before running the final set. With more time and resources it would be possible to fully explore more parameter options and compare a larger number of trees using the combined data set. These would include running a maximum parsimony for the combined tree and Beck and Lee's (2014) original tree in order to allow better comparisons of both to Halliday and Goswami's (2015) original tree. Additionally, further study could look at the effects seen here when the use of molecular data for the extant taxa was included. The use of soley morphological data to estimate node ages, as we did here in the combined matrix tree, undoubtably warrants further study as this approach remains rather novel and the effects when paired with different models and methods undertested Beck and Lee, 2014 ;  Lee et al., 2014. 
+The main limiting factor of this study was that of available time and computational power. %TG: to be frank, as that was certainly a limitation, I'm not sure if it' the main. It's just time consuming to do these projects.
+These limitations meant that our MCMC chains could not run for as long as we hoped or needed in order to fully realise the aims of the investigation. %TG: As I told you, it's normal to have these limitations, where your report will stand out as a good one is if you justify what was expected and what could have been done. Here you say the "MCMC could not run for as long as hoped" what did we hoped (the convergence)? How, if you'd rerun the project could you fix that? This should be discussed for each caveat.
+
+Moreover heavy constraints were required to speed up the MCMC and only a few parameter combinations could be tested before running the final set.
+With more time and resources it would be possible to fully explore more parameter options and compare a larger number of trees using the combined data set.
+These would include running a maximum parsimony for the combined tree and Beck and Lee's (2014) original tree in order to allow better comparisons of both to Halliday and Goswami's (2015) original tree. %TG: why this parameter? Which other ones?
+Additionally, further study could look at the effects seen here when the use of molecular data for the extant taxa was included.
+The use of soley morphological data to estimate node ages, as we did here in the combined matrix tree, undoubtably warrants further study as this approach remains rather novel and the effects when paired with different models and methods undertested Beck and Lee, 2014 ;  Lee et al., 2014. 
 
 \newpage
 
