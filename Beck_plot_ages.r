@@ -219,10 +219,29 @@ color_vector <- c("red", "blue", "green") # make sure you edit that in length fo
 
 plot(1,1, col = "white", ylim = range_nodes, xlim = range_ages, xlab = "ages (Mya)", ylab = "nodes", main="Node Ages")
 
+## Setting up the polygon colors (for the "nodes lines")
+polygon_colors <- c("white", "lightgrey")
 
 ## Adding the lines
 for(one_node in 1:length(node_list)) {
     offset <- 0
+
+    ## If one_node is even, plot a white line, if odd a grey one
+    if((one_node %% 2 == 0 ) == TRUE) {
+        ## Is even
+        color_switch <- 1
+    } else {
+        ## Is odd
+        color_switch <- 2
+    }
+
+    ## Get the polygon coordinates (the -10 + 10 and -0.5 and +0.5 are for "spreading" out of the plot box)
+    polygon_x <- c(range_ages[1]-10, range_ages[2]+10, range_ages[2]+10, range_ages[1]-10)
+    polygon_y <- c((one_node-0.5), (one_node-0.5), (one_node+0.5), (one_node+0.5))
+
+    ## Add the "node line"
+    polygon(x = polygon_x, y = polygon_y, col = polygon_colors[color_switch], border = "white")
+
     ## Loop through the trees
     for(one_tree in 1:length(list_node_values)) {
         ## Plots one line
@@ -234,4 +253,13 @@ for(one_node in 1:length(node_list)) {
         
     }
 }
+
+#TG: You can then add the legend using:
+legend("topright", legend = c("tree1", "tree2", "tree3"), col = color_vector, pch = 19, bg = "white")
+#TG: of course you need to change the tree names! And if you want to position the box more neatly, you can change "topright" by x = 1, y = 1 (for example, if you want it to be anchored at coordinates (1,1))
+
+#TG: You can then add the text for the nodes as:
+text(x = 30, y = 1, "node 1")
+text(x = 30, y = 2, "node 2")
+#TG: etc... of course, you can fine tune the node position and text
 
